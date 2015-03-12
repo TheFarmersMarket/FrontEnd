@@ -24,10 +24,13 @@
             <span>(770) 712-6287</span><br>
             <span>Atlanta, GA</span>
           </div><br>
+
+          <!-- Modal Buttons -->
           <div class="card-action center-align row">
-            <a class="col s6 offset-s3 m8 offset-m2 waves-effect waves-light btn brown" href='#'>Edit Profile</a>
-            <a class="col s6 offset-s3 m8 offset-m2 waves-effect waves-light btn modal-trigger brown" href="#modal1">Edit Password</a>
+            <a ng-click="editProfileModal()" class="col s6 offset-s3 m8 offset-m2 waves-effect waves-light btn brown">Edit Profile</a>
+            <a ng-click="openPasswordModal()" class="col s6 offset-s3 m8 offset-m2 waves-effect waves-light btn brown">Edit Password</a>
           </div><br>
+
         </div>
       </div>
 
@@ -128,15 +131,27 @@
 
   </ul>
 
-  <div id="modal1" class="modal">
+  <div id="changePassword" class="modal">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+      <h4>Edit your Password</h4>
+      <p>A bunch of text to edit your password with</p>
     </div>
     <div class="modal-footer">
-      <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Agree</a>
+      <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Go Back</a>
+      <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Change Password</a>
     </div>
-  </div> 
+  </div>
+
+  <div id="editProfile" class="modal">
+    <div class="modal-content">
+      <h4>Edit your Password</h4>
+      <p>A bunch of text to edit your password with</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Go Back</a>
+      <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Change Password</a>
+    </div>
+  </div>  
 
 </div>
 

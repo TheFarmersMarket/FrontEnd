@@ -41,13 +41,13 @@
    // Farmer Home Page 
    .when('/main/farmer/:id', {
      templateUrl: '/scripts/farmer/farmer.tpl.html',
-     controller: 'UserCtrl'
+     controller: 'FarmerCtrl'
    })
 
    // Customer Home Page 
    .when('/main/customer/:id', {
      templateUrl: '/scripts/customer/customer.tpl.html',
-     controller: 'UserCtrl'
+     controller: 'CustomerCtrl'
    });
 
    // Go Home ET
