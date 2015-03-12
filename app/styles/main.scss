@@ -1,23 +1,74 @@
+//Fonts
+$alfa-font: 'Bree Serif', serif;
+$standard: 'Open Sans', sans-serif;
+//Colors
+$cream: HSLA(60, 46%, 90%, 1);
+$green: HSLA(120, 100%, 30%, 1);
+$brown: HSLA(21, 35%, 50%, 1);
+$soft-green: HSLA(122, 39%, 49%, 1);
 
 // Custom Styles
 body {
   background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
+  font-family: $standard;
+  color: black;
 }
 
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 600px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
-  h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
+.logo {
+  width: 100px;
 }
+
+.user-login {
+	font-size: 14px;
+	margin: 8px 0 0 0;
+}
+
+.row {
+	margin: 0px auto;
+}
+
+i {
+	color: $cream;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: $cream;
+	font-family: $alfa-font;
+	letter-spacing: 2px;
+	font-weight: 900;
+}
+
+.nav-wrapper {
+	background-color: $cream;
+}
+
+
+.profile-banner {
+	width: 100%;
+	background-color: $soft-green;
+
+	.profile-card {
+		background-color: white;
+		margin: 3% auto;
+	}
+
+	.profile-pic {
+		margin: 3% auto;
+		width: 75px;
+	}
+
+	.cta-container {
+		margin-top: 4%;
+	}
+
+	.cta h5 {
+		margin: 0px auto 40px auto;
+	}
+}
+
+.money-icon {
+	color: green;
+	font-weight: bold;
+}
+
+
