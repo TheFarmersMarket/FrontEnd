@@ -4,14 +4,14 @@ $standard: 'Open Sans', sans-serif;
 //Colors
 $cream: HSLA(60, 46%, 90%, 1);
 $green: HSLA(120, 100%, 30%, 1);
-$brown: HSLA(21, 35%, 50%, 1);
+$brown: HSLA(14, 29%, 38%, 1);
 $soft-green: HSLA(122, 39%, 49%, 1);
 
 // Custom Styles
 body {
-  background: #fafafa;
+  background: $cream;
   font-family: $standard;
-  color: black;
+  color: $brown;
 }
 
 .logo {
@@ -27,6 +27,10 @@ body {
 	margin: 0px auto;
 }
 
+.tabs {
+	background-color: $cream;
+}
+
 i {
 	color: $cream;
 }
@@ -39,26 +43,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-wrapper {
-	background-color: $cream;
+	background-color: $soft-green;
 }
 
+.icon-pic {
+	display: inline-block;
+	width: 60px;
+	vertical-align: middle;
+	margin-left: 10px;
+}
 
 .profile-banner {
 	width: 100%;
 	background-color: $soft-green;
 
-	.profile-card {
-		background-color: white;
-		margin: 3% auto;
-	}
-
 	.profile-pic {
 		margin: 3% auto;
 		width: 75px;
-	}
-
-	.cta-container {
-		margin-top: 4%;
 	}
 
 	.cta h5 {
@@ -71,4 +72,86 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
+.modal {
+	i {
+		color: $brown;
+	}
+}
+
+ul {
+
+	h5 {
+	color: $brown;
+	font-size: 2em;
+	}
+
+	i {
+		color: $brown;
+	}
+
+	li {
+		color: $brown;
+		margin-bottom: 10px;
+	}
+
+	.add-crops {
+		margin-top: 20px;
+	}
+}
+
+td {
+	overflow: none;
+}
+
+tr {
+	th {
+		font-weight: bold;
+		color: green;
+	}	
+}
+
+select {
+	margin: 5px 0px 10px 0px;
+}
+
+.card-image {
+	margin-top: 10px;
+}
+
+#menu-dropdown {
+	margin-top: 18px;
+}
+
+.pricing-field {
+	float: left;
+}
+
+/* label color */
+ .input-field label {
+   color: $green;
+ }
+ /* label focus color */
+ .input-field input:focus + label {
+   color: $green;
+ }
+ /* label underline focus color */
+ .input-field input:focus {
+   border-bottom: 1px solid $green;
+   box-shadow: 0 1px 0 0 $green;
+ }
+ /* valid color */
+ .input-field input.valid {
+   border-bottom: 1px solid $green;
+   box-shadow: 0 1px 0 0 $green;
+ }
+ /* invalid color */
+ .input-field input.invalid {
+   border-bottom: 1px solid $green;
+   box-shadow: 0 1px 0 0 $green;
+ }
+ /* icon prefix focus color */
+ .input-field .prefix.active {
+   color: $green;
+ }
+      
 

@@ -1,131 +1,250 @@
+<!-- Navigation Bar -->
+<ul id="menu-dropdown" class="dropdown-content">
+  <li><a ng-click="openProfileModal()" class="waves-effect waves-light">Edit Profile</a></li>
+  <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
+  <li><a ng-click="logoutUser()">Logout</a></li>
+</ul>
+
 <nav>
-  <div class="nav-wrapper valign-wrapper">
-    <a href="" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-    <ul class="right hide-on-med-and-down valign">
-      <li><a href="#/login">Logout</a></li>
-    </ul>
-    <ul class="side-nav" id="mobile-demo valign">
-      <li><a href="#/login">Logout</a></li>
-    </ul>
+  <div class="nav-wrapper">
+    <a class='dropdown-button' href='#' data-activates='menu-dropdown'><img src="https://pics.paypal.com/00/s/ODY0WDEwMDA=/z/EJEAAOSwpDdU9G-C/$_2.GIF" class="circle icon-pic">&nbsp&nbsp Navigation</a>
   </div>
 </nav>
 
-<div class="profile-banner">
-  <div class="col s12">    
+<!-- Change Password Modal -->
+<div id="changePassword" class="modal">    
+  <div class="modal-content">
     <div class="row">
 
-      <!-- Profile Card -->
-      <div class="col s12 m5 l4">
-        <div class="profile-card">
-          <div class="card-content black-text center-align">
-            <img src="https://pics.paypal.com/00/s/ODY0WDEwMDA=/z/EJEAAOSwpDdU9G-C/$_2.GIF" alt="" class="circle profile-pic"><br>
-            <h5 class="card-title black-text">Spencer Wyckoff</h5>
-            <span>The Gathering Restaurant</span><br>
-            <span>(770) 712-6287</span><br>
-            <span>Atlanta, GA</span>
-          </div><br>
-          <div class="card-action center-align">
-            <a href='#'>Edit Profile</a>
-          </div><br>
-        </div>
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-action-lock-open prefix"></i>
+        <input id="new-password" type="password" class="validate" ng-model="user.password">
+        <label for="new-password" class="label">New Password</label>
       </div>
 
-      <!-- Call To Actions -->
-      <div class="col s12 m7 l8 center-align cta-container">
-        <i class="col s6 l4 large mdi-communication-email cta"><h5>Contact Farmer</h5></i>
-        <i class="col s6 l4 large mdi-editor-attach-money cta"><h5>Purchase Crops</h5></i>
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-action-lock-open prefix"></i>
+        <input id="password-confirm" type="password" class="validate" ng-model="user.password_confirmation">
+        <label for="  " class="label">Password Confirmation</label>
       </div>
 
     </div>
   </div>
-</div><br>
-      
-       
-      
-      
-<div class="main-container container row"> 
 
-  <div class="input-field">
-    <input class="browser-default" id="search" type="text">
-    <label for="search">Filter Available Crops<i class="mdi-action-search"></i></label>
+  <div class="modal-footer row">
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
+    </div>
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="" class="col s12 waves-effect waves-green btn brown modal-action" ng-click="changePassword(user)">Change Password</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div id="editProfile" class="modal">
+  <div class="modal-content">
+    <div class="row">
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-social-person prefix"></i>
+        <input id="customer-name" type="text" class="validate" ng-model="customer.contact_name">
+        <label for="customer-name">Contact Name</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-action-home prefix"></i>
+        <input id="business-name" type="text" class="validate" ng-model="customer.business">
+        <label for="business-name">Business Name</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-maps-place prefix"></i>
+        <input id="business-location" type="text" class="validate" ng-model="customer.location">
+        <label for="business-location">Business Location</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-maps-local-phone prefix"></i>
+        <input id="business-phone" type="text" class="validate" ng-model="customer.business_phone">
+        <label for="business-phone">Business Phone</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-communication-email prefix"></i>
+        <input id="business-email" type="text" class="validate" ng-model="customer.business_email">
+        <label for="business-email">Business Email</label>
+      </div>
+
+      <div class="col s12 l8 offset-l2">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteAccount()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
+      </div>
+
+    </div>
   </div>
 
-  <ul class="collection with-header">
-    <li class="collection-header"><h5>Available Crops</h5></li>
+    <div class="modal-footer row">
 
-    <li class="collection-item">
-      <div>
-      <a href="#!">Yellow Onions</a>
-      <div class="secondary-content">
-        <span>Symphony Farms</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>50 lbs</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>$3.25 per lb</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <a href="#!"><i class="mdi-editor-attach-money money-icon"></i></a>
+      <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+        <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
       </div>
-      </div>
-    </li>
 
-    <li class="collection-item">
-      <div>
-      <a href="#!">Green Onions</a>
-      <div class="secondary-content">
-        <span>Symphony Farms</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>50 pounds</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>$3 per pound</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <a href="#!"><i class="mdi-editor-attach-money money-icon"></i></a>
+      <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+        <a href="" class="col s12 waves-effect waves-green btn brown modal-action" ng-click="editCustomerProfile(customer)">Save Changes</a>
       </div>
-      </div>
-    </li>
 
-    <li class="collection-item">
-      <div>
-      <a href="#!">Apples</a>
-      <div class="secondary-content">
-        <span>Symphony Farms</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>50 pounds</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>$3 per pound</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <a href="#!"><i class="mdi-editor-attach-money money-icon"></i></a>
-      </div>
-      </div>
-    </li>
+    </div>
+</div> 
 
-    <li class="collection-item">
-      <div>
-      <a href="#!">Green Beans</a>
-      <div class="secondary-content">
-        <span>Symphony Farms</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>50 pounds</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>$3 per pound</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <a href="#!"><i class="mdi-editor-attach-money money-icon"></i></a>
-      </div>
-      </div>
-    </li>
+<br> 
+<div class="main-container row">
 
-    <li class="collection-item">
-      <div>
-      <a href="#!">Asparagus</a>
-      <div class="secondary-content">
-        <span>Symphony Farms</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>50 pounds</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>$3 per pound</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <a href="#!"><i class="mdi-editor-attach-money money-icon"></i></a>
-      </div>
-      </div>
-    </li>
 
-    <li class="collection-item">
-      <div>
-      <a href="#!">Corn</a>
-      <div class="secondary-content">
-        <span>Symphony Farms</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>50 pounds</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <span>$3 per pound</span>&nbsp &nbsp &nbsp &nbsp &nbsp
-        <a href="#!"><i class="mdi-editor-attach-money money-icon"></i></a>
-      </div>
-      </div>
-    </li>   
+<!-- Farm Card Section -->
+<div class="row">
+  <div class="card col s12 m6 offset-m1 l4 offset-l1 white">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="images/farm1.jpeg">
+    </div>
+    <div class="card-content">
+      <h5 class="card-title activator brown-text">Atlanta Farms<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
+      <p>Farmer: Morpheus Neo</p>
+      <p>Phone: (770) 712-6789</p>
+      <p>Email: contact@atlantafarms.com</p>
+    </div>
+    <div class="card-reveal white">
+      <span class="card-title grey-text text-darken-4">About Atlanta Farms<i class="mdi-navigation-close right black-text"></i></span>
+      <p>Tool shed horse. Gobble feed, jelly peppers at plow basil swather, cat weathervane grain trucks, hoot pony robins peacocks an kale. Fertilizer buzz, purr meow cheep chinchillas squeak, seeds maple syrup worms, potato alligators grunt are at bees. Feed in a woof, a farmers market. Garden windmil.  Chicks, hen at corn in, lettus a peppers. House hen chinchillas in barn livestock cat hogs chicks trucks. House hen chinchillas in barn livestock cat hogs chicks trucks. Garden windmill chicks, hen at corn in, lettus a peppers. House hen chinchillas in barn livestock cat hogs chicks trucks. Feed in a woof, a farmers market. Haybine carrots soybeans, owls duck raising or, cheep in plows. Brussel sprouts cow, rabbits a gates a, storage shed fences. Haybine carrots soybeans.</p>
+    </div>
+  </div>
+</div>
 
-  </ul> 
+
+ 
+<!-- Crops Listed Section -->
+<ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" data-collapsible="expandable">
+  
+  <div class="row">
+    <h5>Crops Listed</h5>
+  </div>
+  <br>
+  
+  <div class="row">
+    <div class="search-bar input-field col s12 m8 l9 right">
+      <i class="mdi-action-search prefix"></i>
+      <input id="crop-search" type="text" class="">
+      <label for="crop-search">Filter Your Crops</label>
+    </div>
+     <a ng-click="openAddCropModal()" class="add-crops left green lighten-2 black-text waves-effect waves-light btn col s8 offset-s2 m4 l3"><i class="mdi-content-add right black-text"></i>Add Crops</a>
+  </div>
+  
+  <li class="amber lighten-5">
+    <div class="collapsible-header truncate"><i class="mdi-maps-restaurant-menu"></i>75lbs of Corn from Atlanta Farms for $1.23 / lb</div>
+    <div class="collapsible-body row">
+      <table class="responsive-table">
+        <thead>
+          <tr>
+              <th data-field="farm-name">Farm Name</th>
+              <th data-field="harvest-date">Harvest Date</th>
+              <th data-field="qty">Quantity</th>
+              <th data-field="price">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Atlanta Farms</td>
+            <td>February 19, 2015</td>
+            <td>75lbs</td>
+            <td>$1.23 / lb</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+
+  <li>
+    <div class="collapsible-header"><i class="mdi-maps-restaurant-menu"></i>Bread</div>
+    <div class="collapsible-body row">
+      <table class="responsive-table">
+        <thead>
+          <tr>
+              <th data-field="farm-name">Farm Name</th>
+              <th data-field="qty">Quantity</th>
+              <th data-field="price">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Atlanta Farms</td>
+            <td>75lbs</td>
+            <td>$1.23 / lb</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>
+
+<!-- Add Crop Modal -->
+<div id="addCrop" class="modal">
+  <div class="modal-content">
+    
+    <div class="row">
+      <h4 class="brown-text center">Add a New Crop</h4>
+    </div>
+
+    <div class="col s12 l8 offset-l2 browser-default">
+      <div class="input-field">
+        <input id="crop-name" type="text" ng-model="crop.crop_name" required>
+        <label for="crop-name">Crop Name</label>
+      </div>
+    </div>
+
+    <div class="col s12 l8 offset-l2 browser-default" required>
+      <div class="input-field">
+        <input id="crop-quantity" type="text" ng-model="crop.quantity">
+        <label for="crop-quantity">Quantity</label>
+      </div>
+    </div>
+
+
+    <div class="col s12 l8 offset-l2">
+      <div class="input-field">
+        <input id="crop-price" type="number" ng-model="crop.price" required>
+        <label for="crop-price">Price</label>      
+      </div>
+    </div> 
+
+    <div class="col s12 l8 offset-l2">
+      <select class="unit-type browser-default" ng-options="type for type in unitTypes" ng-model="crop.type" required>
+        <option value="" disabled selected>Price per...</option>
+      </select>     
+    </div>
+
+    <div class="col s12 l8 offset-l2" required>
+      <select class="currency-type browser-default" ng-options="currency for currency in currencyTypes" ng-model="crop.currency">
+        <option value="" disabled selected>Currency Code</option>       
+      </select>     
+    </div>
+
+  </div>
+
+  <div class="modal-footer row">
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
+    </div>
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a class="col s12 waves-effect waves-green btn brown modal-action" ng-click="addCrop(crop)">Add Crop</a>
+    </div>
+  </div>
 
 </div>
+
+
+
+
 

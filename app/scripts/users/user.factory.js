@@ -10,14 +10,26 @@
 
       // Register a User
       var registerUser = function (userObj) {
-        return $http.post(SERVER.URL + 'users', userObj, SERVER.CONFIG);
-           
+        return $http.post(SERVER.URL + 'users', userObj, SERVER.CONFIG);           
       };
 
       // Login a User
       var loginUser = function (userObj) {        
-        return $http.post(SERVER.URL + 'users/sign_in', userObj);
-                       
+        return $http.post(SERVER.URL + 'users/sign_in', userObj);                       
+      };
+
+      // Set Cookies
+      var setCookies = function (res) {
+        $cookieStore.put('auth_token', res.user.authentication_token);
+        $cookieStore.put('currentUser', res.user);
+        console.log('set cookies');
+      };
+
+      // Logout a User
+      var logoutUser = function () { 
+        $cookieStore.remove('auth_token');
+        $cookieStore.remove('currentUser');
+        $location.path('/login');        
       };
 
       // // Add a Crop
@@ -41,7 +53,8 @@
       return {
         register : registerUser,
         login : loginUser,
-        // addCrop : addATeam,
+        logout : logoutUser,
+        setCookies: setCookies,
         // getTeams : getAllTeams
       };
 
