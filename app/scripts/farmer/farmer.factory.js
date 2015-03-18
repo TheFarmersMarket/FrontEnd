@@ -8,17 +8,28 @@
 
     function ($http, SERVER, $cookieStore, $location) {
 
-      // // Register a User
-      // var registerUser = function (userObj) {
-      //   return $http.post(SERVER.URL + 'users', userObj, SERVER.CONFIG);
+      // Change Password
+      var changePassword = function (userObj, auth) {
+        SERVER.CONFIG.headers['auth-token'] = auth;
+        console.log(SERVER.CONFIG.headers);
+        return $http.put(SERVER.URL + 'users/password', userObj, SERVER.CONFIG);
            
-      // };
+      };
 
-      // // Login a User
-      // var loginUser = function (userObj) {        
-      //   return $http.post(SERVER.URL + 'users/sign_in', userObj);
-                       
-      // };
+      // Edit Profile
+      var editProfile = function (userObj, auth, farmerID) {
+        SERVER.CONFIG.headers['auth-token'] = auth;
+        console.log(SERVER.CONFIG.headers);
+        return $http.put(SERVER.URL + 'farmers/' + farmerID, userObj, SERVER.CONFIG);
+           
+      };
+
+      // Add Crop
+      var addCrop = function (cropObj, auth, farmerID) {
+        SERVER.CONFIG.headers['auth-token'] = auth;
+        return $http.post(SERVER.URL + 'crops', cropObj, SERVER.CONFIG);
+           
+      };
 
       // // Add a Crop
       // var addACrop = function (teamObj) {
@@ -39,9 +50,9 @@
       // };
   
       return {
-        // register : registerUser,
-        // login : loginUser,
-        // addCrop : addATeam,
+        changePassword : changePassword,
+        editProfile: editProfile,
+        addCrop : addCrop,
         // getTeams : getAllTeams
       };
 
