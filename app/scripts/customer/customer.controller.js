@@ -27,12 +27,30 @@
     
       // Define Scopes
       $scope.user = $cookieStore.get('currentUser');
-      console.log($scope.user);
       $scope.email = $scope.user.email;
       $scope.auth_token = $scope.user.authentication_token;
       $scope.id = $scope.user.customer_id;
 
-      
+      // Get Customer Data
+      $scope.getCustomerData = function () {
+        CustomerFactory.getCustomer($scope.id)
+          .success(function (res) {
+            $scope.customerProfile = res.customer;
+            console.log($scope.customerProfile);
+        });
+      };
+
+      $scope.getCustomerData();
+
+      //Create Profile
+      $scope.createProfile = function (obj) {
+        var customerObj = {customer: obj};
+        CustomerFactory.createProfile(customerObj, $scope.auth_token, $scope.id)
+          .success( function(res) {
+            $location.path('/main/customer/' + $scope.id);
+          });
+      };
+
       // Delete Account
       $scope.deleteAccount = function () {
         var person  = window.prompt('Please type in "delete" if you are certain about deleting this account?');

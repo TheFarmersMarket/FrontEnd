@@ -1,6 +1,15 @@
-<h4 class="brown-text center-align">Personalize Your Farm's Profile</h4><br>
 
 <div class="container">
+
+  <div class="row">
+      <a href="#/"><img class="col s10 offset-s1 m6 offset-m3 l6 offset-l3" src="images/farmers-market-logo.png"></a>
+    <br>      
+    <br>      
+    </div>
+
+  <h4 class="brown-text center-align">Customize Your Farm's Profile</h4><br>
+
+
   <div class="row">
     <form class="col s12">
       <div class="row">
@@ -34,14 +43,16 @@
           <label for="farm_crops">List the crops you specialize in...</label>
         </div>
 
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea" ng-model="farmer.description"></textarea>
+          <label for="textarea1">Tell us about your farm...</label>
+        </div>
+
 
       </div> <br>
 
       <div class="row center">
-        <a href="" ng-click="loginPage()">skip this step...</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-
-        <button class="btn waves-effect waves-light" type="submit" name="action" ng-submit="createProfile(farmer)">Submit
-          <i class="mdi-content-send right"></i>
+        <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="createProfile(farmer)">Create Farm Profile
         </button>
       </div>     
       

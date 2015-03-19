@@ -20,6 +20,13 @@
         return $http.put(SERVER.URL + 'users/password', userObj, SERVER.CONFIG);           
       };
 
+      // Create Profile
+      var createProfile = function (farmerObj, auth, farmerID) {
+        console.log(farmerObj);
+        SERVER.CONFIG.headers['auth-token'] = auth;
+        return $http.put(SERVER.URL + 'farmers/' + farmerID, farmerObj, SERVER.CONFIG);
+      };
+
       // Edit Profile
       var editProfile = function (userObj, auth, farmerID) {
         SERVER.CONFIG.headers['auth-token'] = auth;
@@ -36,7 +43,7 @@
 
         // var formData = {farmer: {avatar: userObj}};
 
-        return $http.put(SERVER.URL + 'farmers/' + farmerID, formData, SERVER.CONFIG);           
+        return $http.put(SERVER.URL + 'farmers/' + farmerID + '/pic', formData, SERVER.CONFIG);           
       };
 
       // Add Crop
@@ -75,6 +82,7 @@
       return {
         getFarmer : getFarmer,
         changePassword : changePassword,
+        createProfile: createProfile,
         editProfile: editProfile,
         addCrop : addCrop,
         refreshPage : refreshPage,

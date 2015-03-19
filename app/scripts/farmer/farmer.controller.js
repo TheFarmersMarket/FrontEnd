@@ -9,25 +9,27 @@
     function ($scope, FarmerFactory, $location, SERVER, $cookieStore, UserFactory) {
 
       // Define Scopes
-      // $scope.user = $cookieStore.get('currentUser');
-      // console.log($scope.user);
-      // $scope.email = $scope.user.email;
-      // $scope.auth_token = $scope.user.authentication_token;
-      // $scope.id = $scope.user.id;
-      // $scope.farmerID = $scope.user.farmer_id;
+      $scope.user = $cookieStore.get('currentUser');
+      console.log($scope.user);
+      $scope.email = $scope.user.email;
+      $scope.auth_token = $scope.user.authentication_token;
+      $scope.id = $scope.user.id;
+      $scope.farmerID = $scope.user.farmer_id;
 
-      // FarmerFactory.refreshPage();
+      FarmerFactory.refreshPage();
 
       // Get Farmer Data
       $scope.getFarmerData = function () {
         FarmerFactory.getFarmer($scope.farmerID)
           .success(function (res) {
             $scope.farmerProfile = res.farmer;
+            $scope.avatar = res.avatar.avatar;
             console.log($scope.farmerProfile);
+            console.log($scope.avatar);
         });
       };
 
-      // $scope.getFarmerData();
+      $scope.getFarmerData();
 
       // All Crops
       $scope.allCrops = [];
@@ -42,13 +44,13 @@
       ];
 
       // Create Profile
-      $scope.createProfile = function (userObj) {
-        var farmerObj = {farmer: userObj};
-        console.log(farmerObj);
-        // FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.id)
-        //   .success(function (res) {
-        //     console.log(res);
-        //   });
+      $scope.createProfile = function (obj) {
+        var farmerObj = {farmer: obj};
+        FarmerFactory.createProfile(farmerObj, $scope.auth_token, $scope.farmer_id)
+          .success(function (res) {
+            console.log(res + " success!");
+            $location.path('/main/farmer/' + $scope.farmer_id);
+          });
       };
       
       // Delete Account
@@ -134,7 +136,7 @@
 
         FarmerFactory.editPhoto(imgFile, $scope.auth_token, $scope.id)
           .success( function(res) {
-            console.log('woohoo ' + res);
+            $scope.getFarmerData();
           }); 
       };
 

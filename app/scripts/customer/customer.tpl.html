@@ -103,21 +103,22 @@
 <div class="main-container row">
 
 
-<!-- Farm Card Section -->
+<!-- Customer Card Section -->
 <div class="row">
   <div class="card col s12 m6 offset-m1 l4 offset-l1 white">
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator" src="images/farm1.jpeg">
     </div>
     <div class="card-content">
-      <h5 class="card-title activator brown-text">Business Name<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
-      <p>Contact: Johnny Appleseed</p>
-      <p>Phone: (770) 712-6789</p>
-      <p>Email: contact@businessname.com</p>
+      <h5 class="card-title activator brown-text">{{customerProfile.business}}<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
+      <p>Primary Contact: {{customerProfile.contact_name}}</p>
+      <p>Location: {{customerProfile.location}}</p>
+      <p>Phone: {{customerProfile.business_phone}}</p>
+      <p>Email: {{customerProfile.business_email}}</p>
     </div>
     <div class="card-reveal white">
-      <span class="card-title grey-text text-darken-4">About the Biz<i class="mdi-navigation-close right black-text"></i></span>
-      <p>Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.  Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
+      <span class="card-title grey-text text-darken-4">About {{customerProfile.business}}<i class="mdi-navigation-close right black-text"></i></span>
+      <p>{{customerProfile.description}}</p>
     </div>
   </div>
 </div>

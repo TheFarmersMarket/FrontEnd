@@ -3,7 +3,7 @@ $alfa-font: 'Bree Serif', serif;
 $standard: 'Open Sans', sans-serif;
 //Colors
 $cream: HSLA(60, 46%, 90%, 1);
-$green: HSLA(120, 100%, 30%, 1);
+$green: HSLA(120, 100%, 32%, 1);
 $brown: HSLA(14, 29%, 38%, 1);
 $soft-green: HSLA(122, 39%, 49%, 1);
 
@@ -12,6 +12,42 @@ body {
   background: $cream;
   font-family: $standard;
   color: $brown;
+}
+
+.homepage {
+	background-color: $green;
+	opacity: .8;
+
+	i {
+		font-size: 9em;
+	}
+
+	h3 {
+		font-size: 3.5em;
+	}
+
+	p {
+		color: $cream;
+		font-size: 1.4em;
+	}
+}
+
+.parallax-container {
+	margin: 0px;
+
+	.login-button {
+		background-color: $green;
+		margin-top: 10px;
+	}
+}
+
+footer.page-footer {
+	margin-top: 0px;
+
+	a {
+		color: $cream;
+		text-decoration: underline;
+	}
 }
 
 .logo {
@@ -128,16 +164,17 @@ select {
 
 /* label color */
  .input-field label {
-   color: $green;
+   color: $brown;
  }
+ 
  /* label focus color */
  .input-field input:focus + label {
    color: $green;
  }
  /* label underline focus color */
  .input-field input:focus {
-   border-bottom: 1px solid $green;
-   box-shadow: 0 1px 0 0 $green;
+  	border-bottom: 1px solid $green;
+   	box-shadow: 0 1px 0 0 $green;
  }
  /* valid color */
  .input-field input.valid {
@@ -153,5 +190,10 @@ select {
  .input-field .prefix.active {
    color: $green;
  }
-      
 
+ .input-field input[type=text]:focus + label, .input-field input[type=password]:focus + label, .input-field input[type=email]:focus + label, .input-field input[type=url]:focus + label, .input-field input[type=date]:focus + label, .input-field input[type=tel]:focus + label, .input-field input[type=number]:focus + label, .input-field input[type=search]:focus + label, .input-field textarea:focus.materialize-textarea + label {
+    color: $green; }
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
