@@ -38,6 +38,18 @@
      controller: 'UserCtrl'
    })
 
+   // Create Farmer Profile
+   .when('/farmer/create-profile', {
+     templateUrl: '/scripts/farmer/create-farmer.tpl.html',
+     controller: 'FarmerCtrl'
+   })
+
+   // Create Customer Profile
+   .when('/customer/create-profile', {
+     templateUrl: '/scripts/customer/create-customer.tpl.html',
+     controller: 'CustomerCtrl'
+   })
+
    // Farmer Home Page 
    .when('/main/farmer/:id', {
      templateUrl: '/scripts/farmer/farmer.tpl.html',

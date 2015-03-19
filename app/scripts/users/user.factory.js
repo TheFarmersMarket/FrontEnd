@@ -32,15 +32,7 @@
         $location.path('/login');        
       };
 
-      // // Add a Crop
-      // var addACrop = function (teamObj) {
-
-      //   return $http.post(SERVER.URL + 'teams/', teamObj, {
-      //     params: {
-      //       auth_token: $cookieStore.get('auth_token')
-      //     }
-      //   });              
-      // };
+      
 
       // var getAllTeams = function () {
       //   return $http.get(SERVER.URL + 'user', {
@@ -55,7 +47,6 @@
         login : loginUser,
         logout : logoutUser,
         setCookies: setCookies,
-        // getTeams : getAllTeams
       };
 
     }
