@@ -1,7 +1,8 @@
 <!-- Navigation Bar -->
 <ul id="menu-dropdown" class="dropdown-content">
-  <li><a ng-click="openProfileModal()" class="waves-effect waves-light">Edit Profile</a></li>
+  <li><a ng-click="openProfileModal()" class="waves-effect waves-light">Edit Profile Info</a></li>
   <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
+  <li><a ng-click="openImageModal()" class="waves-effect waves-light">Edit Photo</a></li>
   <li><a ng-click="logoutUser()">Logout</a></li>
 </ul>
 
@@ -48,7 +49,6 @@
 <div id="editProfile" class="modal">
   <div class="modal-content">
     <div class="row">
-
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-action-home prefix"></i>
         <input id="farm-name" type="text" class="validate" ng-model="farmer.farm">
@@ -72,12 +72,14 @@
         <input id="crop-names" type="text" class="validate" ng-model="farmer.crop_names">
         <label for="crop-names">Crops Produced</label>
       </div>
-
-      <div class="col s12 l8 offset-l2">
-        <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteAccount()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
-      </div>
-
     </div>
+
+    
+
+    <div class="col s12 l8 offset-l2">
+      <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteAccount()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
+    </div>
+
   </div>
 
     <div class="modal-footer row">
@@ -96,6 +98,32 @@
 <br> 
 <div class="main-container row">
 
+<!-- Upload Image -->
+<div id="editPhoto" class="modal">    
+  <div class="modal-content">
+    <div class="row">
+
+      <form ng-submit="uploadImage()">
+        <input type="file" id="uploadImage" >
+        <button type="submit">Upload New Image</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- <div class="modal-footer row">
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
+    </div>
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="" class="col s12 waves-effect waves-green btn brown modal-action" ng-click="changePassword(user)">Change Password</a>
+    </div>
+
+  </div> -->
+</div>
+
 
 <!-- Farm Card Section -->
 <div class="row">
@@ -104,14 +132,16 @@
       <img class="activator" src="images/farm1.jpeg">
     </div>
     <div class="card-content">
-      <h5 class="card-title activator brown-text">Atlanta Farms<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
-      <p>Farmer: Morpheus Neo</p>
-      <p>Phone: (770) 712-6789</p>
-      <p>Email: contact@atlantafarms.com</p>
+      <h5 class="card-title activator brown-text">{{farmerProfile.farm}}<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
+      <p>Location: {{farmerProfile.location}}</p>
+      <p>Farmer: {{farmerProfile.contact_name}}</p>
+      <p>Phone: {{farmerProfile.business_phone}}</p>
+      <p>Email: {{farmerProfile.business_email}}</p>
+      <p>Crops: {{farmerProfile.crop_names}}</p>
     </div>
     <div class="card-reveal white">
-      <span class="card-title grey-text text-darken-4">About Atlanta Farms<i class="mdi-navigation-close right black-text"></i></span>
-      <p>Tool shed horse. Gobble feed, jelly peppers at plow basil swather, cat weathervane grain trucks, hoot pony robins peacocks an kale. Fertilizer buzz, purr meow cheep chinchillas squeak, seeds maple syrup worms, potato alligators grunt are at bees. Feed in a woof, a farmers market. Garden windmil.  Chicks, hen at corn in, lettus a peppers. House hen chinchillas in barn livestock cat hogs chicks trucks. House hen chinchillas in barn livestock cat hogs chicks trucks. Garden windmill chicks, hen at corn in, lettus a peppers. House hen chinchillas in barn livestock cat hogs chicks trucks. Feed in a woof, a farmers market. Haybine carrots soybeans, owls duck raising or, cheep in plows. Brussel sprouts cow, rabbits a gates a, storage shed fences. Haybine carrots soybeans.</p>
+      <span class="card-title grey-text text-darken-4">About {{farmerProfile.farm}}<i class="mdi-navigation-close right black-text"></i></span>
+      <p>{{farmerProfile.description}}</p>
     </div>
   </div>
 </div>
@@ -135,8 +165,8 @@
      <a ng-click="openAddCropModal()" class="add-crops left green lighten-2 black-text waves-effect waves-light btn col s8 offset-s2 m4 l3"><i class="mdi-content-add right black-text"></i>Add Crops</a>
   </div>
   
-  <li class="amber lighten-5">
-    <div class="collapsible-header truncate"><i class="mdi-maps-restaurant-menu"></i>75lbs of Corn from Atlanta Farms for $1.23 / lb</div>
+  <li class="amber lighten-5" ng-repeat="crop in allCrops">
+    <div class="collapsible-header truncate"><i class="mdi-maps-restaurant-menu"></i>{{crop.quantity}} of {{crop.crop_name}} for {{crop.price}}</div>
     <div class="collapsible-body row">
       <table class="responsive-table">
         <thead>
@@ -149,32 +179,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>Atlanta Farms</td>
-            <td>February 19, 2015</td>
-            <td>75lbs</td>
-            <td>$1.23 / lb</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </li>
-
-  <li>
-    <div class="collapsible-header"><i class="mdi-maps-restaurant-menu"></i>Bread</div>
-    <div class="collapsible-body row">
-      <table class="responsive-table">
-        <thead>
-          <tr>
-              <th data-field="farm-name">Farm Name</th>
-              <th data-field="qty">Quantity</th>
-              <th data-field="price">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Atlanta Farms</td>
-            <td>75lbs</td>
-            <td>$1.23 / lb</td>
+            <td>Need Farm Name</td>
+            <td>Need Harvest Date</td>
+            <td>{{crop.quantity}}</td>
+            <td>{{crop.price}}</td>
           </tr>
         </tbody>
       </table>
@@ -192,14 +200,14 @@
 
     <div class="col s12 l8 offset-l2 browser-default">
       <div class="input-field">
-        <input id="crop-name" type="text" ng-model="crop.crop_name" required>
+        <input id="crop-name" type="text" ng-model="cropIn.crop_name" required>
         <label for="crop-name">Crop Name</label>
       </div>
     </div>
 
     <div class="col s12 l8 offset-l2 browser-default" required>
       <div class="input-field">
-        <input id="crop-quantity" type="text" ng-model="crop.quantity">
+        <input id="crop-quantity" type="text" ng-model="cropIn.quantity">
         <label for="crop-quantity">Quantity</label>
       </div>
     </div>
@@ -207,19 +215,19 @@
 
     <div class="col s12 l8 offset-l2">
       <div class="input-field">
-        <input id="crop-price" type="number" ng-model="crop.price" required>
+        <input id="crop-price" type="number" ng-model="cropIn.price" required>
         <label for="crop-price">Price</label>      
       </div>
     </div> 
 
     <div class="col s12 l8 offset-l2">
-      <select class="unit-type browser-default" ng-options="type for type in unitTypes" ng-model="crop.type" required>
+      <select class="unit-type browser-default" ng-options="type for type in unitTypes" ng-model="cropIn.type" required>
         <option value="" disabled selected>Price per...</option>
       </select>     
     </div>
 
     <div class="col s12 l8 offset-l2" required>
-      <select class="currency-type browser-default" ng-options="currency for currency in currencyTypes" ng-model="crop.currency">
+      <select class="currency-type browser-default" ng-options="currency for currency in currencyTypes" ng-model="cropIn.currency">
         <option value="" disabled selected>Currency Code</option>       
       </select>     
     </div>
@@ -232,7 +240,7 @@
     </div>
 
     <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
-      <a class="col s12 waves-effect waves-green btn brown modal-action" ng-click="addCrop(crop)">Add Crop</a>
+      <a class="col s12 waves-effect waves-green btn brown modal-action" ng-click="addCrop(cropIn)">Add Crop</a>
     </div>
   </div>
 

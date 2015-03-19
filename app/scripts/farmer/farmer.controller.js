@@ -8,24 +8,31 @@
 
     function ($scope, FarmerFactory, $location, SERVER, $cookieStore, UserFactory) {
 
-      $('.collapsible').collapsible({
-        accordion : false
-      });
-      // Navigation Icon Dropdown
-      $('.dropdown-button').dropdown({
-        inDuration: 500,
-        outDuration: 300,
-        constrain_width: false, // Does not change width of dropdown to that of the activator
-        hover: false, // Activate on click
-        alignment: 'left', // Aligns dropdown to left or right edge (works with constrain_width)
-        gutter: 0, // Spacing from edge
-        belowOrigin: true // Displays dropdown below the button
-      });
+      // Define Scopes
+      // $scope.user = $cookieStore.get('currentUser');
+      // console.log($scope.user);
+      // $scope.email = $scope.user.email;
+      // $scope.auth_token = $scope.user.authentication_token;
+      // $scope.id = $scope.user.id;
+      // $scope.farmerID = $scope.user.farmer_id;
 
-      $('.unit-type').material_select();
-      $('.currency-type').material_select();
+      // FarmerFactory.refreshPage();
 
-      //Dropdowns
+      // Get Farmer Data
+      $scope.getFarmerData = function () {
+        FarmerFactory.getFarmer($scope.farmerID)
+          .success(function (res) {
+            $scope.farmerProfile = res.farmer;
+            console.log($scope.farmerProfile);
+        });
+      };
+
+      // $scope.getFarmerData();
+
+      // All Crops
+      $scope.allCrops = [];
+
+      //Dropdown Items
       $scope.unitTypes = [
         "per bushel", "per lb", "per sq ft"
       ];
@@ -34,14 +41,15 @@
         "USD", "EUR", "CAD", "GBP", "JPY", "AUD", "MXN" 
       ];
 
-    
-      // Define Scopes
-      $scope.user = $cookieStore.get('currentUser');
-      console.log($scope.user);
-      $scope.email = $scope.user.email;
-      $scope.auth_token = $scope.user.authentication_token;
-      $scope.id = $scope.user.id;
-
+      // Create Profile
+      $scope.createProfile = function (userObj) {
+        var farmerObj = {farmer: userObj};
+        console.log(farmerObj);
+        // FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.id)
+        //   .success(function (res) {
+        //     console.log(res);
+        //   });
+      };
       
       // Delete Account
       $scope.deleteAccount = function () {
@@ -115,6 +123,21 @@
           });
       };
 
+      // Edit Photo Modal
+      $scope.openImageModal = function () {
+        $('#editPhoto').openModal();
+      };
+
+      $scope.uploadImage = function (files) {
+        var img = document.getElementById('uploadImage');
+        var imgFile = img.files[0];
+
+        FarmerFactory.editPhoto(imgFile, $scope.auth_token, $scope.id)
+          .success( function(res) {
+            console.log('woohoo ' + res);
+          }); 
+      };
+
       // Open Add Crop Modal
       $scope.openAddCropModal = function () {
         $('#addCrop').openModal();
@@ -123,19 +146,29 @@
       // Add Crop
       $scope.addCrop = function (cropObj) {
         var cropObject = {crop: cropObj};
-        console.log(cropObject);
         FarmerFactory.addCrop(cropObject, $scope.auth_token, $scope.id)
           .success(function (res) {
             console.log(res);
-        //     $scope.farmer.farm = null;
-        //     $scope.farmer.location = null;
-        //     $scope.farmer.business_phone = null;
-        //     $scope.farmer.crop_names = null;
-        //     $('.prefix').removeClass('active');
-        //     $('.label').removeClass('active');
-        //     $('#editProfile').closeModal();
+            //close modal
+            $('.label').removeClass('active');
+            $scope.cropIn.crop_name = null;
+            $scope.cropIn.quantity = null;
+            $scope.cropIn.price = null;
+            $scope.cropIn.type = null;
+            $scope.cropIn.currency = null;
+            $('#addCrop').closeModal();
+
+            $scope.allCrops.push(res.crop);
+
+            setTimeout(function () {
+              $('.collapsible').collapsible({
+                accordion : false
+              }); 
+            }, 0);
+            
           });
       };
+
 
 
     }
