@@ -2,12 +2,13 @@
 <ul id="menu-dropdown" class="dropdown-content">
   <li><a ng-click="openProfileModal()" class="waves-effect waves-light">Edit Profile</a></li>
   <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
+  <li><a ng-click="openImageModal()" class="waves-effect waves-light">Edit Photo</a></li>
   <li><a ng-click="logoutUser()">Logout</a></li>
 </ul>
 
 <nav>
   <div class="nav-wrapper">
-    <a class='dropdown-button' href='#' data-activates='menu-dropdown'><img src="https://pics.paypal.com/00/s/ODY0WDEwMDA=/z/EJEAAOSwpDdU9G-C/$_2.GIF" class="circle icon-pic">&nbsp&nbsp Navigation</a>
+    <a class='dropdown-button' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic">&nbsp&nbsp {{customer.business}}</a>
   </div>
 </nav>
 
@@ -103,8 +104,23 @@
 <div class="main-container row">
 
 
+<!-- Upload Image Modal-->
+<div id="editPhoto" class="modal">    
+  <div class="modal-content">
+    <div class="row">
+
+      <form ng-submit="uploadImage()">
+        <input type="file" id="uploadImage">
+        <button type="submit">Upload New Image</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
 <!-- Customer Card Section -->
-<div class="row">
+<!-- <div class="row">
   <div class="card col s12 m6 offset-m1 l4 offset-l1 white">
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator" src="images/farm1.jpeg">
@@ -121,27 +137,34 @@
       <p>{{customerProfile.description}}</p>
     </div>
   </div>
-</div>
+</div> -->
 
 
  
 <!-- Crops Listed Section -->
-<ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" data-collapsible="expandable">
+<ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5">
   
   <div class="row">
-    <h5>The Farmer's Market</h5>
+    <h5 class= "center">Marketplace</h5>
   </div>
   
+  <!-- Search Bar -->
   <div class="row">
-    <div class="search-bar input-field col s12 right">
-      <i class="mdi-action-search prefix"></i>
-      <input id="crop-search" type="text" class="">
-      <label for="crop-search">Search for Crops</label>
-    </div>
-     <!-- <a ng-click="openAddCropModal()" class="add-crops left green lighten-2 black-text waves-effect waves-light btn col s8 offset-s2 m4 l3"><i class="mdi-content-add right black-text"></i>Add Crops</a> -->
+    <form>
+      <div class="search-bar input-field col s9 left">
+        <i class="mdi-action-search prefix"></i>
+        <input id="crop-search" type="text" ng-model="searchQuery">
+        <!-- <label for="crop-search">Search for Crops</label> -->
+      </div>
+
+      <button class="btn waves-effect waves-light right search-btn col s3" type="submit" ng-click="search(searchQuery)">
+        Search
+      </button>
+    </form>
   </div>
   
-  <li class="amber lighten-5">
+  <!-- Search Results -->
+  <li class="amber lighten-5" ng-repeat="result in allResults">
     <div class="collapsible-header truncate"><i class="mdi-maps-restaurant-menu"></i>75lbs of Corn from Atlanta Farms for $1.23 / lb</div>
     <div class="collapsible-body row">
       <table class="responsive-table">
@@ -157,28 +180,6 @@
           <tr>
             <td>Atlanta Farms</td>
             <td>February 19, 2015</td>
-            <td>75lbs</td>
-            <td>$1.23 / lb</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </li>
-
-  <li>
-    <div class="collapsible-header"><i class="mdi-maps-restaurant-menu"></i>Bread</div>
-    <div class="collapsible-body row">
-      <table class="responsive-table">
-        <thead>
-          <tr>
-              <th data-field="farm-name">Farm Name</th>
-              <th data-field="qty">Quantity</th>
-              <th data-field="price">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Atlanta Farms</td>
             <td>75lbs</td>
             <td>$1.23 / lb</td>
           </tr>

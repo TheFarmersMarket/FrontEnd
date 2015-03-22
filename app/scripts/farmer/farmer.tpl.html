@@ -7,17 +7,12 @@
   <li><a ng-click="logoutUser()">Logout</a></li>
 </ul>
 
-<nav>
-  <div class="nav-wrapper">
-    <a class='dropdown-button' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic">
-    </a>
+<div class="navigation green row">
+    <a class='dropdown-button col s3 left' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic">
+      </a>
 
-    <div class="center-align nav-middle">
-    <a class="tooltipped " data-position="bottom" data-delay="50" data-tooltip="I am tooltip">{{farmerProfile.farm}}</a>
-    </div>
-        
-  </div>
-</nav>
+      <h5 class="col s9">{{farmerProfile.farm}}</h5>
+</div>
 
 <!-- Change Password Modal -->
 <div id="changePassword" class="modal">    
@@ -59,25 +54,25 @@
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-action-home prefix"></i>
         <input id="farm-name" type="text" class="validate" ng-model="farmer.farm">
-        <label for="farm-name">Farm Name</label>
+        <label for="farm-name">Farm Name is currently: {{farmerProfile.farm}}</label>
       </div>
 
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-maps-place prefix"></i>
         <input id="farm-location" type="text" class="validate" ng-model="farmer.location">
-        <label for="farm-location">Farm Location</label>
+        <label for="farm-location">Location is currently: {{farmerProfile.location}}</label>
       </div>
 
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-maps-local-phone prefix"></i>
         <input id="business-phone" type="text" class="validate" ng-model="farmer.business_phone">
-        <label for="business-phone">Business Phone</label>
+        <label for="business-phone">Phone is currently: {{farmerProfile.business_phone}}</label>
       </div>
 
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-maps-local-restaurant prefix"></i>  
         <input id="crop-names" type="text" class="validate" ng-model="farmer.crop_names">
-        <label for="crop-names">Crops Produced</label>
+        <label for="crop-names">Crops produced is currently: {{farmerProfile.crop_names}}</label>
       </div>
     </div>
 
@@ -105,34 +100,28 @@
 <br> 
 <div class="main-container row">
 
-<!-- Upload Image -->
+<!-- Upload Image Modal-->
 <div id="editPhoto" class="modal">    
   <div class="modal-content">
+    
+    <div class="row">
+      <p>Current Image:</p>
+      <img src="{{avatar}}">
+    </div> <br>
+
     <div class="row">
 
       <form ng-submit="uploadImage()">
-        <input type="file" id="uploadImage" >
+        <input type="file" id="uploadImage">
         <button type="submit">Upload New Image</button>
       </form>
 
     </div>
   </div>
-
-  <!-- <div class="modal-footer row">
-
-    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
-      <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
-    </div>
-
-    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
-      <a href="" class="col s12 waves-effect waves-green btn brown modal-action" ng-click="changePassword(user)">Change Password</a>
-    </div>
-
-  </div> -->
 </div>
 
 
-<!-- Farm Card Section -->
+<!-- Farm Card Section -->  
 <!-- <div class="row">
   <div class="card col s8 offset-s2 m4 offset-m1 l4 offset-l1 white">
     <div class="card-image waves-effect waves-block waves-light">
@@ -170,7 +159,7 @@
 <ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" data-collapsible="expandable">
   
   <div class="center">
-    <h5>Marketplace</h5>
+    <h5>Your Crops</h5>
   </div>
 
       <!-- <img src="images/farmers-market-logo.png" data-lightbox="roadtrip"> -->
@@ -197,13 +186,13 @@
     
     <div class="collapsible-header truncate" >
       
-      <a href="images/farmers-market-logo.png" data-lightbox="image-1" data-title="My caption"><i class="mdi-image-camera-alt"></i></a>
+      <a href="{{cropAvatar}}" data-lightbox="image-1" data-title="My caption" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
 
-      <span>{{crop.quantity}} of {{crop.crop_name}} for {{crop.price}}</span>
+      <span>{{crop.quantity}} of {{crop.crop_name}} for ${{crop.price}}</span>
 
       <a href="" ng-click="deleteCrop(crop.id)" class="delete-crop secondary-content"><i class="mdi-content-clear"></i></a>
 
-      <a href="" ng-click="openEditCropModal()" class="edit-crop secondary-content"><i class="mdi-editor-mode-edit"></i></a>
+      <a href="" ng-click="openEditCropModal(crop.id)" class="edit-crop secondary-content"><i class="mdi-editor-mode-edit"></i></a>
     </div>
 
     <div class="collapsible-body row">
@@ -234,57 +223,57 @@
 <!-- Add Crop Modal -->
 <div id="addCrop" class="modal">
   <div class="modal-content">
-    
+    <form>
     <div class="row">
       <h4 class="brown-text center">Add a New Crop</h4>
     </div>
-
     <div class="col s12 l8 offset-l2 browser-default">
       <div class="input-field">
-        <input id="crop-name" type="text" ng-model="cropIn.crop_name" required>
+        <input id="crop-name" type="text" ng-model="cropIn.crop_name">
         <label for="crop-name">Crop Name</label>
       </div>
     </div>
-
-    <div class="col s12 l8 offset-l2 browser-default" required>
+    <div class="col s12 l8 offset-l2 browser-default">
       <div class="input-field">
         <input id="crop-quantity" type="text" ng-model="cropIn.quantity">
         <label for="crop-quantity">Quantity</label>
       </div>
     </div>
-
-
     <div class="col s12 l8 offset-l2">
       <div class="input-field">
-        <input id="crop-price" type="number" ng-model="cropIn.price" required>
+        <input id="crop-price" type="number" ng-model="cropIn.price">
         <label for="crop-price">Price</label>      
       </div>
     </div> 
-
     <div class="col s12 l8 offset-l2">
-      <select class="unit-type browser-default" ng-options="type for type in unitTypes" ng-model="cropIn.type" required>
+      <select class="unit-type browser-default" ng-options="unit for unit in unitTypes" ng-model="cropIn.unit">
         <option value="" disabled selected>Price per...</option>
       </select>     
     </div>
-
-    <div class="col s12 l8 offset-l2" required>
+    <div class="col s12 l8 offset-l2">
       <select class="currency-type browser-default" ng-options="currency for currency in currencyTypes" ng-model="cropIn.currency">
         <option value="" disabled selected>Currency Code</option>       
       </select>     
     </div>
-
+    <!-- Upload Image Modal-->
+    <div class="modal-content">
+      <div class="row">
+        <!-- <form ng-submit="uploadImage()"> -->
+          <input type="file" ng-model="cropIn.avatar">
+          <!-- <button type="submit">Upload New Image</button> -->
+        <!-- </form> -->
+      </div>
+    </div>
   </div>
-
   <div class="modal-footer row">
     <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
       <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
     </div>
-
     <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
       <a class="col s12 waves-effect waves-green btn brown modal-action" ng-click="addCrop(cropIn)">Add Crop</a>
     </div>
   </div>
-
+  </form>    
 </div>
 
 <!-- Edit Crop Modal -->
@@ -318,7 +307,7 @@
     </div> 
 
     <div class="col s12 l8 offset-l2">
-      <select class="unit-type browser-default" ng-options="type for type in unitTypes" ng-model="cropIn.type" required>
+      <select class="unit-type browser-default" ng-options="unit for unit in unitTypes" ng-model="cropIn.unit" required>
         <option value="" disabled selected>Price per...</option>
       </select>     
     </div>
@@ -337,7 +326,7 @@
     </div>
 
     <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
-      <a class="col s12 waves-effect waves-green btn brown modal-action" ng-click="editCrop(cropIn, crop.id)">Edit Crop</a>
+      <a class="col s12 waves-effect waves-green btn brown modal-action" ng-click="editCrop(cropIn)">Edit Crop</a>
     </div>
   </div>
 
@@ -345,8 +334,8 @@
 <!-- </div> -->
 
 <!-- DISQUS -->
-<!-- 
-  <div id="disqus_thread"></div>
+
+<!--   <div id="disqus_thread" class="col s10 offset-s1"></div>
 
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */

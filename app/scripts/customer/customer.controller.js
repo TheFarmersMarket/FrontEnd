@@ -8,34 +8,24 @@
 
     function ($scope, CustomerFactory, $location, SERVER, $cookieStore, UserFactory) {
 
-      $('.collapsible').collapsible({
-        accordion : false
-      });
-      // Navigation Icon Dropdown
-      $('.dropdown-button').dropdown({
-        inDuration: 500,
-        outDuration: 300,
-        constrain_width: false, // Does not change width of dropdown to that of the activator
-        hover: false, // Activate on click
-        alignment: 'left', // Aligns dropdown to left or right edge (works with constrain_width)
-        gutter: 0, // Spacing from edge
-        belowOrigin: true // Displays dropdown below the button
-      });
-
-      $('.unit-type').material_select();
-      $('.currency-type').material_select();
-    
       // Define Scopes
       $scope.user = $cookieStore.get('currentUser');
       $scope.email = $scope.user.email;
       $scope.auth_token = $scope.user.authentication_token;
-      $scope.id = $scope.user.customer_id;
+      $scope.customerID = $scope.user.customer_id;
+      $scope.id = $scope.user.id;
+
+
+      //Refresh page method on customer factory
+      CustomerFactory.refreshPage();
+
 
       // Get Customer Data
       $scope.getCustomerData = function () {
-        CustomerFactory.getCustomer($scope.id)
+        CustomerFactory.getCustomer($scope.customerID)
           .success(function (res) {
             $scope.customerProfile = res.customer;
+            $scope.avatar = res.avatar.avatar;
             console.log($scope.customerProfile);
         });
       };
@@ -125,27 +115,35 @@
           });
       };
 
-      // Open Add Crop Modal
-      $scope.openAddCropModal = function () {
-        $('#addCrop').openModal();
+      // Edit Photo Modal
+      $scope.openImageModal = function () {
+        $('#editPhoto').openModal();
       };
 
-      // Add Crop
-      $scope.addCrop = function (cropObj) {
-        var cropObject = {crop: cropObj};
-        console.log(cropObject);
-        FarmerFactory.addCrop(cropObject, $scope.auth_token, $scope.id)
-          .success(function (res) {
-            console.log(res);
-        //     $scope.farmer.farm = null;
-        //     $scope.farmer.location = null;
-        //     $scope.farmer.business_phone = null;
-        //     $scope.farmer.crop_names = null;
-        //     $('.prefix').removeClass('active');
-        //     $('.label').removeClass('active');
-        //     $('#editProfile').closeModal();
+      // Upload an Image
+      $scope.uploadImage = function (files) {
+        var img = document.getElementById('uploadImage');
+        var imgFile = img.files[0];
+
+        CustomerFactory.editPhoto(imgFile, $scope.auth_token, $scope.customerID)
+          .success( function(res) {
+            $scope.getCustomerData();
+            $('#editPhoto').closeModal();
+          }); 
+      };
+
+      $scope.allResults = [];
+
+      // Search
+      $scope.search = function (query) {
+        CustomerFactory.search(query, $scope.auth_token)
+          .success( function (res) {
+            console.log(res.search);
+            $scope.allResults = res.search;
+            console.log($scope.allResults);
           });
       };
+
 
 
     }

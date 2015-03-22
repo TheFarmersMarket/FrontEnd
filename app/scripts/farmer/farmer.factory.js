@@ -28,10 +28,11 @@
       };
 
       // Edit Profile
-      var editProfile = function (userObj, auth, farmerID) {
+      var editProfile = function (farmerObj, auth, farmerID) {
+        console.log(farmerObj);
         SERVER.CONFIG.headers['auth-token'] = auth;
         console.log(SERVER.CONFIG.headers);
-        return $http.put(SERVER.URL + 'farmers/' + farmerID, userObj, SERVER.CONFIG);           
+        return $http.put(SERVER.URL + 'farmers/' + farmerID, farmerObj, SERVER.CONFIG);           
       };
 
       // Edit Photo
@@ -58,9 +59,9 @@
       };
 
       // Edit Crop
-      var editCrop = function (cropID, auth, farmerID) {
+      var editCrop = function (cropObj, auth, cropID) {
         SERVER.CONFIG.headers['auth-token'] = auth;
-        return $http.put(SERVER.URL + 'crops/' + cropID, SERVER.CONFIG);
+        return $http.put(SERVER.URL + 'crops/' + cropID, cropObj, SERVER.CONFIG);
       };
 
       // Delete Crop

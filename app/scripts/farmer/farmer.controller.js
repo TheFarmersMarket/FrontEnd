@@ -25,15 +25,13 @@
         FarmerFactory.getFarmer($scope.farmerID)
           .success(function (res) {
             $scope.farmerProfile = res.farmer;
+            console.log($scope.farmerProfile);
             $scope.avatar = res.avatar.avatar;
         });
       };
 
       //Get Farmer Data from Server
       $scope.getFarmerData();
-
-      // initialize tooltip
-      // $('.tooltipped').tooltip({delay: 50});
 
       // All Crops
       $scope.allCrops = [];
@@ -45,7 +43,7 @@
 
       //Filter Items
       $scope.filterTypes = [
-        "price ascending", "price descending"
+        "harvest date", "price ascending", "price descending"
       ];
 
       $scope.currencyTypes = [
@@ -118,16 +116,12 @@
         $('#editProfile').openModal();
       };  
 
-      // Edit Profile Modal
+      // Edit Farmer Profile Modal
       $scope.editFarmerProfile = function (userObj) {
         var farmerObj = {farmer: userObj};
         console.log(farmerObj);
-        FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.id)
+        FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.farmerID)
           .success(function () {
-            $scope.farmer.farm = null;
-            $scope.farmer.location = null;
-            $scope.farmer.business_phone = null;
-            $scope.farmer.crop_names = null;
             $('.prefix').removeClass('active');
             $('.label').removeClass('active');
             $('#editProfile').closeModal();
@@ -135,36 +129,34 @@
       };
 
       // Open EditCrop Modal
-      $scope.openEditCropModal = function () {
+      $scope.openEditCropModal = function (cropID) {
+        $scope.currentCropID = cropID;
         $('#editCropModal').openModal();
       };  
 
-      // Edit Profile Modal
-      $scope.editFarmerProfile = function (userObj) {
-        var farmerObj = {farmer: userObj};
-        console.log(farmerObj);
-        FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.id)
-          .success(function () {
-            $scope.farmer.farm = null;
-            $scope.farmer.location = null;
-            $scope.farmer.business_phone = null;
-            $scope.farmer.crop_names = null;
-            $('.prefix').removeClass('active');
-            $('.label').removeClass('active');
-            $('#editProfile').closeModal();
-          });
-      };
+      // // Edit Crop Modal
+      // $scope.editCropModal = function (userObj) {
+      //   var farmerObj = {farmer: userObj};
+      //   console.log(farmerObj);
+      //   FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.id)
+      //     .success(function () {
+      //       $('.prefix').removeClass('active');
+      //       $('.label').removeClass('active');
+      //       $('#editProfile').closeModal();
+      //     });
+      // };
 
       // Edit Photo Modal
       $scope.openImageModal = function () {
         $('#editPhoto').openModal();
       };
 
+      // Upload an Image
       $scope.uploadImage = function (files) {
         var img = document.getElementById('uploadImage');
         var imgFile = img.files[0];
 
-        FarmerFactory.editPhoto(imgFile, $scope.auth_token, $scope.id)
+        FarmerFactory.editPhoto(imgFile, $scope.auth_token, $scope.farmerID)
           .success( function(res) {
             $scope.getFarmerData();
             $('#editPhoto').closeModal();
@@ -197,7 +189,10 @@
       // Add Crop
       $scope.addCrop = function (cropObj) {
         var cropObject = {crop: cropObj};
-        FarmerFactory.addCrop(cropObject, $scope.auth_token, $scope.id)
+        console.log(cropObj.avatar);
+        console.log(cropObj.price);
+
+        FarmerFactory.addCrop(cropObject, $scope.auth_token, $scope.farmerID)
           .success(function (res) {
             console.log(res);
             //close modal
@@ -208,6 +203,7 @@
             $scope.cropIn.type = null;
             $scope.cropIn.currency = null;
             $('#addCrop').closeModal();
+            $scope.cropAvatar = res.crop.avatar;
 
             $scope.allCrops.push(res.crop);
 
@@ -225,7 +221,7 @@
         var deleteThis = confirm("Are you certain you want to delete this crop?");
         
         if (deleteThis === true) {
-          FarmerFactory.deleteCrop(cropID, $scope.auth_token, $scope.id)
+          FarmerFactory.deleteCrop(cropID, $scope.auth_token, $scope.farmerID)
             .success(function () {
               console.log('crop deleted from server!');
             });
@@ -236,8 +232,8 @@
       };
 
       // Edit Crop
-      $scope.editCrop = function (cropID) {
-        FarmerFactory.edit(cropID, $scope.auth_token, $scope.id)
+      $scope.editCrop = function (cropObj) {
+        FarmerFactory.edit(cropObj, $scope.auth_token, $scope.currentCropID)
           .success(function () {
             console.log('crop edited on server');
           });
