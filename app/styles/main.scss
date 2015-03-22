@@ -9,9 +9,13 @@ $soft-green: HSLA(122, 39%, 49%, 1);
 
 // Custom Styles
 body {
-  background: $cream;
   font-family: $standard;
   color: $brown;
+  background-color: $cream;
+}
+
+.major-container {
+	background-image: url('/images/farm.jpg')
 }
 
 .homepage {
@@ -29,6 +33,29 @@ body {
 	p {
 		color: $cream;
 		font-size: 1.4em;
+	}
+}
+
+.image-box img { max-height:150px; }
+
+
+.image-box {
+	overflow: auto;
+	background-color: white;
+	img {
+	margin-bottom: 10px;
+	padding: 5px;
+	border: 5px solid white;
+	}
+
+	h5 {
+	color: $brown;
+	font-size: 2em;
+	}
+
+	.img-icon {
+		max-width:24%;
+		min-width: 135px;
 	}
 }
 
@@ -53,6 +80,8 @@ footer.page-footer {
 .logo {
   width: 100px;
 }
+
+.nav-
 
 .user-login {
 	font-size: 14px;
@@ -158,13 +187,24 @@ select {
 	margin-top: 18px;
 }
 
+.delete-crop {
+	i {
+		color: red;
+
+		&:hover {
+			font-size: 1.8em;
+			font-weight: bold;
+		}
+	}
+}
+
 .pricing-field {
 	float: left;
 }
 
 /* label color */
  .input-field label {
-   color: $green;
+   color: $brown;
  }
  
  /* label focus color */
@@ -197,3 +237,9 @@ select {
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
+
+.filter-bar {
+	margin-top: 12px;
+	display: inline-block;
+}
+

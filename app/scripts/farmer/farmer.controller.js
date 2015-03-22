@@ -16,7 +16,9 @@
       $scope.id = $scope.user.id;
       $scope.farmerID = $scope.user.farmer_id;
 
-      FarmerFactory.refreshPage();
+      // Refresh page method on farmer factory
+     FarmerFactory.refreshPage();
+
 
       // Get Farmer Data
       $scope.getFarmerData = function () {
@@ -24,12 +26,14 @@
           .success(function (res) {
             $scope.farmerProfile = res.farmer;
             $scope.avatar = res.avatar.avatar;
-            console.log($scope.farmerProfile);
-            console.log($scope.avatar);
         });
       };
 
+      //Get Farmer Data from Server
       $scope.getFarmerData();
+
+      // initialize tooltip
+      // $('.tooltipped').tooltip({delay: 50});
 
       // All Crops
       $scope.allCrops = [];
@@ -37,6 +41,11 @@
       //Dropdown Items
       $scope.unitTypes = [
         "per bushel", "per lb", "per sq ft"
+      ];
+
+      //Filter Items
+      $scope.filterTypes = [
+        "price ascending", "price descending"
       ];
 
       $scope.currencyTypes = [
@@ -125,6 +134,27 @@
           });
       };
 
+      // Open EditCrop Modal
+      $scope.openEditCropModal = function () {
+        $('#editCropModal').openModal();
+      };  
+
+      // Edit Profile Modal
+      $scope.editFarmerProfile = function (userObj) {
+        var farmerObj = {farmer: userObj};
+        console.log(farmerObj);
+        FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.id)
+          .success(function () {
+            $scope.farmer.farm = null;
+            $scope.farmer.location = null;
+            $scope.farmer.business_phone = null;
+            $scope.farmer.crop_names = null;
+            $('.prefix').removeClass('active');
+            $('.label').removeClass('active');
+            $('#editProfile').closeModal();
+          });
+      };
+
       // Edit Photo Modal
       $scope.openImageModal = function () {
         $('#editPhoto').openModal();
@@ -137,6 +167,7 @@
         FarmerFactory.editPhoto(imgFile, $scope.auth_token, $scope.id)
           .success( function(res) {
             $scope.getFarmerData();
+            $('#editPhoto').closeModal();
           }); 
       };
 
@@ -144,6 +175,24 @@
       $scope.openAddCropModal = function () {
         $('#addCrop').openModal();
       };
+
+      // Get Crops
+      $scope.getCrops = function () {
+        FarmerFactory.getCrops($scope.id)
+          .success( function (res) {
+            $scope.allCrops = res.crops;
+
+            setTimeout(function () {
+              $('.collapsible').collapsible({
+                accordion : false
+              }); 
+            }, 0);
+
+          });
+      };
+
+      $scope.getCrops();
+
 
       // Add Crop
       $scope.addCrop = function (cropObj) {
@@ -170,6 +219,34 @@
             
           });
       };
+
+      // Delete Crop
+      $scope.deleteCrop = function (cropID) {
+        var deleteThis = confirm("Are you certain you want to delete this crop?");
+        
+        if (deleteThis === true) {
+          FarmerFactory.deleteCrop(cropID, $scope.auth_token, $scope.id)
+            .success(function () {
+              console.log('crop deleted from server!');
+            });
+        }
+
+        $scope.getCrops();
+
+      };
+
+      // Edit Crop
+      $scope.editCrop = function (cropID) {
+        FarmerFactory.edit(cropID, $scope.auth_token, $scope.id)
+          .success(function () {
+            console.log('crop edited on server');
+          });
+
+        $scope.getCrops();
+
+      };
+
+
 
 
 

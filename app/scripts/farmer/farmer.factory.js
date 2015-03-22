@@ -46,10 +46,27 @@
         return $http.put(SERVER.URL + 'farmers/' + farmerID + '/pic', formData, SERVER.CONFIG);           
       };
 
+      // Get Crops
+      var getCrops = function (farmerID) {
+        return $http.get(SERVER.URL + 'farmers/' + farmerID + '/crops');
+      };
+
       // Add Crop
       var addCrop = function (cropObj, auth, farmerID) {
         SERVER.CONFIG.headers['auth-token'] = auth;
         return $http.post(SERVER.URL + 'crops', cropObj, SERVER.CONFIG);           
+      };
+
+      // Edit Crop
+      var editCrop = function (cropID, auth, farmerID) {
+        SERVER.CONFIG.headers['auth-token'] = auth;
+        return $http.put(SERVER.URL + 'crops/' + cropID, SERVER.CONFIG);
+      };
+
+      // Delete Crop
+      var deleteCrop = function (cropID, auth, farmerID) {
+        SERVER.CONFIG.headers['auth-token'] = auth;        
+        return $http.delete(SERVER.URL + 'crops/' + cropID, SERVER.CONFIG);
       };
 
       
@@ -75,18 +92,21 @@
         $('.unit-type').material_select();
         $('.currency-type').material_select();
 
-
-
       };
+
+      
   
       return {
         getFarmer : getFarmer,
         changePassword : changePassword,
         createProfile: createProfile,
         editProfile: editProfile,
+        getCrops: getCrops,
         addCrop : addCrop,
         refreshPage : refreshPage,
-        editPhoto: editPhoto
+        editPhoto: editPhoto,
+        deleteCrop: deleteCrop,
+        edit: editCrop
       };
 
     }

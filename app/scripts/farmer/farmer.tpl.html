@@ -1,4 +1,5 @@
 <!-- Navigation Bar -->
+<!-- <div class="major-container"> -->
 <ul id="menu-dropdown" class="dropdown-content">
   <li><a ng-click="openProfileModal()" class="waves-effect waves-light">Edit Profile Info</a></li>
   <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
@@ -8,7 +9,13 @@
 
 <nav>
   <div class="nav-wrapper">
-    <a class='dropdown-button' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic">&nbsp&nbsp Navigation</a>
+    <a class='dropdown-button' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic">
+    </a>
+
+    <div class="center-align nav-middle">
+    <a class="tooltipped " data-position="bottom" data-delay="50" data-tooltip="I am tooltip">{{farmerProfile.farm}}</a>
+    </div>
+        
   </div>
 </nav>
 
@@ -126,10 +133,10 @@
 
 
 <!-- Farm Card Section -->
-<div class="row">
-  <div class="card col s12 m6 offset-m1 l4 offset-l1 white">
+<!-- <div class="row">
+  <div class="card col s8 offset-s2 m4 offset-m1 l4 offset-l1 white">
     <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="{{avatar}}">
+      <img class="activator data-lightbox" src="{{avatar}}">
     </div>
     <div class="card-content">
       <h5 class="card-title activator brown-text">{{farmerProfile.farm}}<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
@@ -144,29 +151,61 @@
       <p>{{farmerProfile.description}}</p>
     </div>
   </div>
+</div> -->
+
+
+<div class="collapsible image-box center col s12 m10 offset-m1 l10 offset-l1 amber lighten-5">
+  <div class="center">
+    <h5>Images</h5>
+  </div><br>
+
+  <a href="images/farm-1.jpg" data-lightbox="farm" data-title="Time to harvest"><img class="img-icon" src="images/farm-1.jpg"></a>
+  <a href="images/farm.jpg" data-lightbox="farm" data-title="My caption"><img class="img-icon" src="images/farm.jpg"></a>
+  <a href="images/farm1.jpeg" data-lightbox="farm" data-title="My caption"><img class="img-icon" src="images/farm1.jpeg"></a>
+  <a href="images/farmers-market-logo.png" data-lightbox="farm" data-title="My caption"><img class="img-icon" src="images/farmers-market-logo.png"></a>
 </div>
 
-
- 
+  <!-- <hr> -->
 <!-- Crops Listed Section -->
 <ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" data-collapsible="expandable">
   
-  <div class="row">
-    <h5>Crops Listed</h5>
+  <div class="center">
+    <h5>Marketplace</h5>
   </div>
-  <br>
-  
+
+      <!-- <img src="images/farmers-market-logo.png" data-lightbox="roadtrip"> -->
+
   <div class="row">
-    <div class="search-bar input-field col s12 m8 l9 right">
+
+    <div class="search-bar input-field col s12 m6 l6 " ng-model="searchText">
       <i class="mdi-action-search prefix"></i>
-      <input id="crop-search" type="text" class="">
-      <label for="crop-search">Filter Your Crops</label>
+      <input id="crop-search" type="text" >
+      <label for="crop-search">Search</label>
     </div>
-     <a ng-click="openAddCropModal()" class="add-crops left green lighten-1 black-text waves-effect waves-light btn col s8 offset-s2 m4 l3"><i class="mdi-content-add right black-text"></i>Add Crops</a>
+
+     <a ng-click="openAddCropModal()" class="add-crops  green lighten-1 black-text waves-effect waves-light btn col s3 offset-s1 m2 l1 offset-l1 ">Add</a> 
+
+     <div class="col s6 offset-s1 m4 l3 offset-l1 filter-bar ">
+      <select class="unit-type browser-default" ng-options="type for type in filterTypes" ng-model="cropIn.type">
+        <option value="" disabled selected>Filter by...</option>
+      </select>     
+    </div>
+
   </div>
   
-  <li class="amber lighten-5" ng-repeat="crop in allCrops">
-    <div class="collapsible-header truncate"><i class="mdi-maps-restaurant-menu"></i>{{crop.quantity}} of {{crop.crop_name}} for {{crop.price}}</div>
+  <li class="amber lighten-5" ng-repeat="crop in allCrops | filter:searchText" id="{{crop.id}}">
+    
+    <div class="collapsible-header truncate" >
+      
+      <a href="images/farmers-market-logo.png" data-lightbox="image-1" data-title="My caption"><i class="mdi-image-camera-alt"></i></a>
+
+      <span>{{crop.quantity}} of {{crop.crop_name}} for {{crop.price}}</span>
+
+      <a href="" ng-click="deleteCrop(crop.id)" class="delete-crop secondary-content"><i class="mdi-content-clear"></i></a>
+
+      <a href="" ng-click="openEditCropModal()" class="edit-crop secondary-content"><i class="mdi-editor-mode-edit"></i></a>
+    </div>
+
     <div class="collapsible-body row">
       <table class="responsive-table">
         <thead>
@@ -179,16 +218,18 @@
         </thead>
         <tbody>
           <tr>
-            <td>Need Farm Name</td>
+            <td ng-model="search.name">{{farmerProfile.farm}}</td>
             <td>Need Harvest Date</td>
             <td>{{crop.quantity}}</td>
-            <td>{{crop.price}}</td>
+            <td>${{crop.price}} per {{crop.unit}}</td>
+            <!-- <td style="display:none;">{{crop.id}}</td> -->
           </tr>
         </tbody>
       </table>
     </div>
   </li>
 </ul>
+
 
 <!-- Add Crop Modal -->
 <div id="addCrop" class="modal">
@@ -246,7 +287,81 @@
 
 </div>
 
+<!-- Edit Crop Modal -->
+<div id="editCropModal" class="modal">
+  <div class="modal-content">
+    
+    <div class="row">
+      <h4 class="brown-text center">Edit Crop</h4>
+    </div>
+
+    <div class="col s12 l8 offset-l2 browser-default">
+      <div class="input-field">
+        <input id="crop-name" type="text" ng-model="cropIn.crop_name" required>
+        <label for="crop-name">Crop Name</label>
+      </div>
+    </div>
+
+    <div class="col s12 l8 offset-l2 browser-default" required>
+      <div class="input-field">
+        <input id="crop-quantity" type="text" ng-model="cropIn.quantity">
+        <label for="crop-quantity">Quantity</label>
+      </div>
+    </div>
+
+
+    <div class="col s12 l8 offset-l2">
+      <div class="input-field">
+        <input id="crop-price" type="number" ng-model="cropIn.price" required>
+        <label for="crop-price">Price</label>      
+      </div>
+    </div> 
+
+    <div class="col s12 l8 offset-l2">
+      <select class="unit-type browser-default" ng-options="type for type in unitTypes" ng-model="cropIn.type" required>
+        <option value="" disabled selected>Price per...</option>
+      </select>     
+    </div>
+
+    <div class="col s12 l8 offset-l2" required>
+      <select class="currency-type browser-default" ng-options="currency for currency in currencyTypes" ng-model="cropIn.currency">
+        <option value="" disabled selected>Currency Code</option>       
+      </select>     
+    </div>
+
+  </div>
+
+  <div class="modal-footer row">
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
+    </div>
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a class="col s12 waves-effect waves-green btn brown modal-action" ng-click="editCrop(cropIn, crop.id)">Edit Crop</a>
+    </div>
+  </div>
+
+
+<!-- </div> -->
+
+<!-- DISQUS -->
+<!-- 
+  <div id="disqus_thread"></div>
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'thefarmersmarket';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript> -->
 
 
 
 
+</div>
