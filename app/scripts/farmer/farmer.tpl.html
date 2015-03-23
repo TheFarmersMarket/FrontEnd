@@ -143,7 +143,7 @@
 </div> -->
 
 
-<div class="collapsible image-box center col s12 m10 offset-m1 l10 offset-l1 amber lighten-5">
+<!-- <div class="collapsible image-box center col s12 m10 offset-m1 l10 offset-l1 amber lighten-5">
   <div class="center">
     <h5>Images</h5>
   </div><br>
@@ -152,9 +152,10 @@
   <a href="images/farm.jpg" data-lightbox="farm" data-title="My caption"><img class="img-icon" src="images/farm.jpg"></a>
   <a href="images/farm1.jpeg" data-lightbox="farm" data-title="My caption"><img class="img-icon" src="images/farm1.jpeg"></a>
   <a href="images/farmers-market-logo.png" data-lightbox="farm" data-title="My caption"><img class="img-icon" src="images/farmers-market-logo.png"></a>
-</div>
+</div> -->
 
   <!-- <hr> -->
+
 <!-- Crops Listed Section -->
 <ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" data-collapsible="expandable">
   
@@ -186,7 +187,7 @@
     
     <div class="collapsible-header truncate" >
       
-      <a href="{{cropAvatar}}" data-lightbox="image-1" data-title="My caption" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
+      <a href="{{crop.avatar}}" data-lightbox="{{crop.id}}" data-title="{{crop.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
 
       <span>{{crop.quantity}} of {{crop.crop_name}} for ${{crop.price}}</span>
 
@@ -227,13 +228,13 @@
     <div class="row">
       <h4 class="brown-text center">Add a New Crop</h4>
     </div>
-    <div class="col s12 l8 offset-l2 browser-default">
+    <div class="col s12 l8 offset-l2">
       <div class="input-field">
         <input id="crop-name" type="text" ng-model="cropIn.crop_name">
         <label for="crop-name">Crop Name</label>
       </div>
     </div>
-    <div class="col s12 l8 offset-l2 browser-default">
+    <div class="col s12 l8 offset-l2">
       <div class="input-field">
         <input id="crop-quantity" type="text" ng-model="cropIn.quantity">
         <label for="crop-quantity">Quantity</label>
@@ -259,7 +260,7 @@
     <div class="modal-content">
       <div class="row">
         <!-- <form ng-submit="uploadImage()"> -->
-          <input type="file" ng-model="cropIn.avatar">
+          <input type="file" id="cropImage">
           <!-- <button type="submit">Upload New Image</button> -->
         <!-- </form> -->
       </div>

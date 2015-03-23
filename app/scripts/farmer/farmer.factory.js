@@ -41,9 +41,6 @@
         SERVER.CONFIG.headers['Content-Type'] = undefined;
         var formData = new FormData();
         formData.append('farmer[avatar]', userObj);
-
-        // var formData = {farmer: {avatar: userObj}};
-
         return $http.put(SERVER.URL + 'farmers/' + farmerID + '/pic', formData, SERVER.CONFIG);           
       };
 
@@ -53,9 +50,19 @@
       };
 
       // Add Crop
-      var addCrop = function (cropObj, auth, farmerID) {
+      var addCrop = function (cropObj, cropImg, auth, farmerID) {
         SERVER.CONFIG.headers['auth-token'] = auth;
-        return $http.post(SERVER.URL + 'crops', cropObj, SERVER.CONFIG);           
+        SERVER.CONFIG.headers['Content-Type'] = undefined;
+        
+        var formData = new FormData();
+        formData.append('crop[avatar]', cropImg);
+        formData.append('crop[crop_name]', cropObj.crop_name);
+        formData.append('crop[quantity]', cropObj.quantity);
+        formData.append('crop[price]', cropObj.price);
+        formData.append('crop[currency]', cropObj.currency);
+        formData.append('crop[unit]', cropObj.unit);
+
+        return $http.post(SERVER.URL + 'crops', formData, SERVER.CONFIG);           
       };
 
       // Edit Crop

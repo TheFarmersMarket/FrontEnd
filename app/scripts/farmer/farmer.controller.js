@@ -10,14 +10,25 @@
 
       // Define Scopes
       $scope.user = $cookieStore.get('currentUser');
-      console.log($scope.user);
       $scope.email = $scope.user.email;
       $scope.auth_token = $scope.user.authentication_token;
       $scope.id = $scope.user.id;
       $scope.farmerID = $scope.user.farmer_id;
+      $scope.profileType = $scope.user.profile_type;
 
       // Refresh page method on farmer factory
-     FarmerFactory.refreshPage();
+      FarmerFactory.refreshPage();
+
+
+     // Create Profile
+      $scope.createProfile = function (obj) {
+        var farmerObj = {farmer: obj};
+        FarmerFactory.createProfile(farmerObj, $scope.auth_token, $scope.farmerID)
+          .success(function (res) {
+            console.log(res + " success!");
+            $location.path('/main/farmer/' + $scope.farmerID);
+          });
+      };
 
 
       // Get Farmer Data
@@ -25,6 +36,7 @@
         FarmerFactory.getFarmer($scope.farmerID)
           .success(function (res) {
             $scope.farmerProfile = res.farmer;
+            console.log("Farmer Profile");
             console.log($scope.farmerProfile);
             $scope.avatar = res.avatar.avatar;
         });
@@ -50,22 +62,14 @@
         "USD", "EUR", "CAD", "GBP", "JPY", "AUD", "MXN" 
       ];
 
-      // Create Profile
-      $scope.createProfile = function (obj) {
-        var farmerObj = {farmer: obj};
-        FarmerFactory.createProfile(farmerObj, $scope.auth_token, $scope.farmer_id)
-          .success(function (res) {
-            console.log(res + " success!");
-            $location.path('/main/farmer/' + $scope.farmer_id);
-          });
-      };
+      
       
       // Delete Account
       $scope.deleteAccount = function () {
         var person  = window.prompt('Please type in "delete" if you are certain about deleting this account?');
         if (person === 'delete') {
-          var userObj = {user: {}};
-          UserFactory.deleteAccount()
+          // var userObj = {user: {}};
+          UserFactory.deleteUser($scope.profileType, $scope.farmerID, $scope.auth_token)
           .success( function() {
             console.log('account successfully deleted');
             $cookieStore.remove('auth_token');
@@ -91,6 +95,7 @@
       };
       // Launch Load Modal 
       $scope.loadModal();
+
  
       // Open Password Modal
       $scope.openPasswordModal = function () {
@@ -111,22 +116,35 @@
           });
       };
 
-      // Open Profile Modal
+      
+      // Open Farmer Profile Modal
       $scope.openProfileModal = function () {
         $('#editProfile').openModal();
       };  
 
-      // Edit Farmer Profile Modal
+      // Edit Farmer Profile
       $scope.editFarmerProfile = function (userObj) {
         var farmerObj = {farmer: userObj};
         console.log(farmerObj);
         FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.farmerID)
           .success(function () {
-            $('.prefix').removeClass('active');
-            $('.label').removeClass('active');
-            $('#editProfile').closeModal();
+            setTimeout(function () {
+              $scope.getFarmerData();
+            }, 100);
+
+            setTimeout(function () {
+              $scope.farmer.farm = null;
+              $scope.farmer.location = null;
+              $scope.farmer.business_phone = null;
+              $scope.farmer.crop_names = null;
+              $('.prefix').removeClass('active');
+              $('.label').removeClass('active');
+              $('#editProfile').closeModal();
+            }, 500);
+
           });
       };
+
 
       // Open EditCrop Modal
       $scope.openEditCropModal = function (cropID) {
@@ -134,17 +152,17 @@
         $('#editCropModal').openModal();
       };  
 
-      // // Edit Crop Modal
-      // $scope.editCropModal = function (userObj) {
-      //   var farmerObj = {farmer: userObj};
-      //   console.log(farmerObj);
-      //   FarmerFactory.editProfile(farmerObj, $scope.auth_token, $scope.id)
-      //     .success(function () {
-      //       $('.prefix').removeClass('active');
-      //       $('.label').removeClass('active');
-      //       $('#editProfile').closeModal();
-      //     });
-      // };
+      // Edit Crop
+      $scope.editCrop = function (cropObj) {
+        FarmerFactory.edit(cropObj, $scope.auth_token, $scope.currentCropID)
+          .success(function () {
+            setTimeout(function () {
+              $scope.getCrops();
+              $('#editCropModal').closeModal();              
+            }, 100);
+          });
+      };      
+
 
       // Edit Photo Modal
       $scope.openImageModal = function () {
@@ -170,10 +188,10 @@
 
       // Get Crops
       $scope.getCrops = function () {
-        FarmerFactory.getCrops($scope.id)
+        FarmerFactory.getCrops($scope.farmerID)
           .success( function (res) {
             $scope.allCrops = res.crops;
-
+            console.log($scope.allCrops);
             setTimeout(function () {
               $('.collapsible').collapsible({
                 accordion : false
@@ -182,18 +200,18 @@
 
           });
       };
-
+      
       $scope.getCrops();
-
 
       // Add Crop
       $scope.addCrop = function (cropObj) {
-        var cropObject = {crop: cropObj};
-        console.log(cropObj.avatar);
-        console.log(cropObj.price);
+        var img = document.getElementById('cropImage');
+        var cropImg = img.files[0];
+        console.log(cropObj);
 
-        FarmerFactory.addCrop(cropObject, $scope.auth_token, $scope.farmerID)
+        FarmerFactory.addCrop(cropObj, cropImg, $scope.auth_token, $scope.farmerID)
           .success(function (res) {
+            console.log("add crop");
             console.log(res);
             //close modal
             $('.label').removeClass('active');
@@ -203,16 +221,13 @@
             $scope.cropIn.type = null;
             $scope.cropIn.currency = null;
             $('#addCrop').closeModal();
-            $scope.cropAvatar = res.crop.avatar;
 
             $scope.allCrops.push(res.crop);
 
             setTimeout(function () {
-              $('.collapsible').collapsible({
-                accordion : false
-              }); 
-            }, 0);
-            
+              $scope.getCrops();
+            }, 100);            
+          
           });
       };
 
@@ -223,27 +238,13 @@
         if (deleteThis === true) {
           FarmerFactory.deleteCrop(cropID, $scope.auth_token, $scope.farmerID)
             .success(function () {
-              console.log('crop deleted from server!');
+              setTimeout(function () {
+                $scope.getCrops();
+              }, 100);
             });
         }
 
-        $scope.getCrops();
-
       };
-
-      // Edit Crop
-      $scope.editCrop = function (cropObj) {
-        FarmerFactory.edit(cropObj, $scope.auth_token, $scope.currentCropID)
-          .success(function () {
-            console.log('crop edited on server');
-          });
-
-        $scope.getCrops();
-
-      };
-
-
-
 
 
     }

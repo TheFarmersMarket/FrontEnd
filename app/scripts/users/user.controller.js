@@ -17,6 +17,8 @@
           .success( function (res) {
             UserFactory.setCookies(res);
             $location.path('/' + res.user.profile_type + '/create-profile');
+            $scope.user = $cookieStore.get('currentUser');
+            //RETURNS id, email, authentication_token, profile_type, farmer_id
           });
       };
 
@@ -26,7 +28,7 @@
           .success( function (res) {
             console.log(res);
             UserFactory.setCookies(res);
-            $location.path('/main/' + res.user.profile_type + '/' + res.user.id);
+            $location.path('/main/' + res.user.profile_type + '/' + (res.user.farmer_id || res.user.customer_id));
           })
           .error( function (res) {
             console.log("FAILED");

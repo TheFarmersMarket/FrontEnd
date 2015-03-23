@@ -6,11 +6,13 @@
   <li><a ng-click="logoutUser()">Logout</a></li>
 </ul>
 
-<nav>
-  <div class="nav-wrapper">
-    <a class='dropdown-button' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic">&nbsp&nbsp {{customer.business}}</a>
+<div class="navigation row">
+  <div class="nav-container center">
+    <a class='dropdown-button left' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic"></a>
+    <h5 class="col s9">{{customerProfile.business}}</h5>
+    <!-- <i class="mdi-action-hometion-shopping-cart small">Cart</i> -->
   </div>
-</nav>
+</div>
 
 <!-- Change Password Modal -->
 <div id="changePassword" class="modal">    
@@ -119,6 +121,47 @@
 </div>
 
 
+<!-- Show/Hide Tutorial -->
+<div class="row center">
+<a href="" ng-click="showme=true">new? click for instructions</a>
+</div><br>
+
+<ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" ng-show="showme" >
+  
+  <div class="row" ng-hide="showme">
+  </div>
+  
+  
+  <!-- Search Results -->
+  <li class="amber lighten-5">
+    
+    <div class="collapsible-header truncate center amber lighten-5" >
+      <a href="" class="remove-how-to" ng-click="showme=false"><i class="mdi-content-clear"></i></a>
+      <h5>Instructions</h5>
+    </div>
+
+    <div class="row">
+      <table class="responsive-table">
+        <thead>
+          <tr>
+              <th data-field="step-1">Step 1</th>
+              <th data-field="step-2">Step 2</th>
+              <th data-field="step-3">Step 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Search for a crop below</td>
+            <td>Use keywords like "crop name" or "city"</td>
+            <td>Find local crops close to you!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>
+
+
 <!-- Customer Card Section -->
 <!-- <div class="row">
   <div class="card col s12 m6 offset-m1 l4 offset-l1 white">
@@ -165,23 +208,40 @@
   
   <!-- Search Results -->
   <li class="amber lighten-5" ng-repeat="result in allResults">
-    <div class="collapsible-header truncate"><i class="mdi-maps-restaurant-menu"></i>75lbs of Corn from Atlanta Farms for $1.23 / lb</div>
+    
+    <div class="collapsible-header truncate" >
+      
+      <a href="{{result.avatar}}" data-lightbox="{{result.crop_id}}" data-title="{{result.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
+      <a href="" class="add-to-cart"><i class="mdi-action-add-shopping-cart"></i></a>
+
+
+      <span>{{result.farm || 'farm?'}} has {{result.quantity}} {{result.crop_name}} for ${{result.price}}</span>
+
+
+    </div>
+
     <div class="collapsible-body row">
       <table class="responsive-table">
         <thead>
           <tr>
-              <th data-field="farm-name">Farm Name</th>
-              <th data-field="harvest-date">Harvest Date</th>
-              <th data-field="qty">Quantity</th>
-              <th data-field="price">Price</th>
+              <th data-field="result-type">Crop Name</th>
+              <th data-field="result-type">Farm Name</th>    
+              <th data-field="result-type">Contact Name</th>
+              <th data-field="result-type">Quantity</th>
+              <th data-field="result-type">Price</th>          
+              <th data-field="result-type">Price per Unit</th>
+              <th data-field="result-url">Farm URL</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Atlanta Farms</td>
-            <td>February 19, 2015</td>
-            <td>75lbs</td>
-            <td>$1.23 / lb</td>
+            <td>{{result.crop_name || "no name provided"}}</td>
+            <td>{{result.farm || "no farm provided"}}</td>
+            <td>{{result.contact_name || "no name provided"}}</td>
+            <td>{{result.quantity || "no quantity provided"}}</td>
+            <td>${{result.price || "no price provided"}}</td>
+            <td>{{result.unit || "no unit provided"}}</td>
+            <td><a href="http://localhost:9000/#/main{{result.url}}">Go here</a></td>
           </tr>
         </tbody>
       </table>

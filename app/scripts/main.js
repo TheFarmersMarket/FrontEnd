@@ -40,13 +40,13 @@
 
    // Create Farmer Profile
    .when('/farmer/create-profile', {
-     templateUrl: '/scripts/farmer/create-farmer.tpl.html',
+     templateUrl: '/scripts/farmers/create-farmer.tpl.html',
      controller: 'FarmerCtrl'
    })
 
    // Create Customer Profile
    .when('/customer/create-profile', {
-     templateUrl: '/scripts/customer/create-customer.tpl.html',
+     templateUrl: '/scripts/customers/create-customer.tpl.html',
      controller: 'CustomerCtrl'
    })
 
@@ -61,9 +61,6 @@
      templateUrl: '/scripts/customer/customer.tpl.html',
      controller: 'CustomerCtrl'
    });
-
-   // Go Home ET
-   // .otherwise('/');
    
  }]);
 

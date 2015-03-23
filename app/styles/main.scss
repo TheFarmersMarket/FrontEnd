@@ -107,6 +107,21 @@ h1, h2, h3, h4, h5, h6 {
 
 .navigation {
 	min-height: 60px;
+	background-color: $green;
+
+	.nav-container {
+		
+		.dropdown-button {
+			text-align: left;
+		}
+		h5 {
+			display: inline-block;
+			text-align: center;
+		}
+		.mdi-action-shopping-cart {
+			display: inline;
+		}
+	}
 }
 
 .icon-pic {
@@ -191,6 +206,17 @@ select {
 	}
 }
 
+.remove-how-to {
+	i {
+		color: red;
+
+	&:hover {
+			font-size: 1.8em;
+			font-weight: bold;
+		}
+	}
+}
+
 .delete-crop {
 	i {
 		color: red;
@@ -265,4 +291,6 @@ input:-webkit-autofill {
 		
 	}
 }
+
+
 

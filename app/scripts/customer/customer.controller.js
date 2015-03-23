@@ -12,13 +12,23 @@
       $scope.user = $cookieStore.get('currentUser');
       $scope.email = $scope.user.email;
       $scope.auth_token = $scope.user.authentication_token;
-      $scope.customerID = $scope.user.customer_id;
       $scope.id = $scope.user.id;
+      $scope.customerID = $scope.user.customer_id;
+      $scope.profileType = $scope.user.profile_type;
 
 
       //Refresh page method on customer factory
       CustomerFactory.refreshPage();
 
+
+      //Create Profile
+      $scope.createProfile = function (obj) {
+        var customerObj = {customer: obj};
+        CustomerFactory.createProfile(customerObj, $scope.auth_token, $scope.customerID)
+          .success( function(res) {
+            $location.path('/main/customer/' + $scope.customerID);
+          });
+      };
 
       // Get Customer Data
       $scope.getCustomerData = function () {
@@ -26,27 +36,20 @@
           .success(function (res) {
             $scope.customerProfile = res.customer;
             $scope.avatar = res.avatar.avatar;
+            console.log("Customer Profile:")
             console.log($scope.customerProfile);
         });
       };
 
       $scope.getCustomerData();
 
-      //Create Profile
-      $scope.createProfile = function (obj) {
-        var customerObj = {customer: obj};
-        CustomerFactory.createProfile(customerObj, $scope.auth_token, $scope.id)
-          .success( function(res) {
-            $location.path('/main/customer/' + $scope.id);
-          });
-      };
+      
 
       // Delete Account
       $scope.deleteAccount = function () {
         var person  = window.prompt('Please type in "delete" if you are certain about deleting this account?');
         if (person === 'delete') {
-          var userObj = {user: {}};
-          UserFactory.deleteAccount()
+          UserFactory.deleteUser($scope.profileType, $scope.customerID, $scope.auth_token)
           .success( function() {
             console.log('account successfully deleted');
             $cookieStore.remove('auth_token');
@@ -92,16 +95,16 @@
           });
       };
 
-      // Open Profile Modal
+      // Open Customer Profile Modal
       $scope.openProfileModal = function () {
         $('#editProfile').openModal();
       };  
 
-      // Edit Profile Modal
+      // Edit Customer Profile Modal
       $scope.editCustomerProfile = function (userObj) {
         var customerObj = {customer: userObj};
         console.log(customerObj);
-        CustomerFactory.editProfile(customerObj, $scope.auth_token, $scope.id)
+        CustomerFactory.editProfile(customerObj, $scope.auth_token, $scope.customerID)
           .success(function (res) {
             console.log(res);
             $scope.customer.contact_name = null;
@@ -138,7 +141,6 @@
       $scope.search = function (query) {
         CustomerFactory.search(query, $scope.auth_token)
           .success( function (res) {
-            console.log(res.search);
             $scope.allResults = res.search;
             console.log($scope.allResults);
           });

@@ -32,21 +32,18 @@
         $location.path('/login');        
       };
 
-      
-
-      // var getAllTeams = function () {
-      //   return $http.get(SERVER.URL + 'user', {
-      //     params: {
-      //       auth_token: $cookieStore.get('auth_token')
-      //     }
-      //   });
-      // };
+      // Delete User
+      var deleteUser = function (profileType, id, auth) {
+        SERVER.CONFIG.headers['auth-token'] = auth;
+        return $http.delete(SERVER.URL + profileType + 's/' + id, SERVER.CONFIG); 
+      };
   
       return {
         register : registerUser,
         login : loginUser,
         logout : logoutUser,
         setCookies: setCookies,
+        deleteUser: deleteUser
       };
 
     }
