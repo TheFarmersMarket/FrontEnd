@@ -1,0 +1,211 @@
+<!-- Navigation Bar -->
+<ul id="menu-dropdown" class="dropdown-content">
+  <li><a ng-click="openProfileModal()" class="waves-effect waves-light">Edit Profile</a></li>
+  <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
+  <li><a ng-click="openImageModal()" class="waves-effect waves-light">Edit Photo</a></li>
+  <li><a ng-click="logoutUser()">Logout</a></li>
+</ul>
+
+<div class="navigation row">
+  <div class="nav-container center">
+    <a class='dropdown-button left' href='#' data-activates='menu-dropdown'>
+    <i class="mdi-navigation-arrow-drop-down small"><img src="{{farmerAvatar}}" class="circle icon-pic"></i>  
+    </a>
+    <h5 class="col s8">{{farmerProfile.farm}} Profile</h5>
+    <!-- <i class="mdi-action-hometion-shopping-cart small">Cart</i> -->
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePassword" class="modal">    
+  <div class="modal-content">
+    <div class="row">
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-action-lock-open prefix"></i>
+        <input id="new-password" type="password" class="validate" ng-model="user.password">
+        <label for="new-password" class="label">New Password</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-action-lock-open prefix"></i>
+        <input id="password-confirm" type="password" class="validate" ng-model="user.password_confirmation">
+        <label for="  " class="label">Password Confirmation</label>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-footer row">
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="#" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
+    </div>
+
+    <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+      <a href="" class="col s12 waves-effect waves-green btn brown modal-action" ng-click="changePassword(user)">Change Password</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div id="editProfile" class="modal">
+  <div class="modal-content">
+    <div class="row">
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-social-person prefix"></i>
+        <input id="customer-name" type="text" class="validate" ng-model="customer.contact_name">
+        <label for="customer-name">Contact Name</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-action-home prefix"></i>
+        <input id="business-name" type="text" class="validate" ng-model="customer.business">
+        <label for="business-name">Business Name</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-maps-place prefix"></i>
+        <input id="business-location" type="text" class="validate" ng-model="customer.location">
+        <label for="business-location">Business Location</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-maps-local-phone prefix"></i>
+        <input id="business-phone" type="text" class="validate" ng-model="customer.business_phone">
+        <label for="business-phone">Business Phone</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-communication-email prefix"></i>
+        <input id="business-email" type="text" class="validate" ng-model="customer.business_email">
+        <label for="business-email">Business Email</label>
+      </div>
+
+      <div class="col s12 l8 offset-l2">
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteUser()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
+      </div>
+
+    </div>
+  </div>
+
+    <div class="modal-footer row">
+
+      <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+        <a href="" class="col s12 waves-effect waves-green btn brown modal-action modal-close">Go Back</a>
+      </div>
+
+      <div class="col s9 offset-s2 m5 offset-m1 l5 offset-l1">
+        <a href="" class="col s12 waves-effect waves-green btn brown modal-action" ng-click="editCustomerProfile(customer)">Save Changes</a>
+      </div>
+
+    </div>
+</div> 
+
+<br> 
+<div class="main-container row">
+
+
+<!-- Upload Image Modal-->
+<div id="editPhoto" class="modal">    
+  <div class="modal-content">
+    <div class="row">
+
+      <form ng-submit="uploadImage()">
+        <input type="file" id="uploadImage">
+        <button type="submit">Upload New Image</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Link back to Customer Page -->
+<div class="row center tutorial">
+<a href="#/main/customer/{{user.customer_id}}">back to my page</a>
+</div><br>
+
+<!-- Farm Card Section -->  
+<div class="farmer-profile row">
+  <div class="card col s10 offset-s1 m4 offset-m1 l3 offset-l1 white">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator data-lightbox" src="{{farmerAvatar}}">
+    </div>
+    <div class="card-content">
+      <h5 class="card-title activator brown-text">{{farmerProfile.farm || 'Farm'}}<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
+      <h6>Contact Info:</h6>
+      <p>{{farmerProfile.contact_name || "Farmer John"}}</p>
+      <p>{{farmerProfile.location || "Atlanta, GA"}}</p>
+      <p><a href="tel:{{farmerProfile.business_phone}}">{{farmerProfile.business_phone || "no phone provided"}}</a></p>
+      <p><a href="mailto:{{farmerProfile.email}}">{{farmerProfile.email || "no email provided"}}</a></p>
+    </div>
+    <div class="card-reveal white">
+      <span class="card-title grey-text text-darken-4">About<i class="mdi-navigation-close right black-text"></i></span>
+      <p>{{farmerProfile.description || "This is a family owned farm that specializes in the freshest produce on Earth."}}</p>
+    </div>
+  </div>
+
+  <div class="collapsible image-box center col s12 m5 offset-m1 l6 offset-l1 amber lighten-5">
+    
+    <br>
+    <a class="waves-effect waves-light btn-large"><i class="mdi-social-group-add right large"></i>Follow</a>
+
+
+  </div>
+</div>
+
+
+<!-- Crops Listed Section -->
+<ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" data-collapsible="expandable">
+  
+  <div class="center">
+    <h5>Farm's Crops</h5>
+  </div>
+
+  <div class="row">
+    <div class="search-bar input-field col s12 m8 offset-m2 l8 offset-l2 " ng-model="searchText">
+      <i class="mdi-action-search prefix"></i>
+      <input id="crop-search" type="text" >
+      <label for="crop-search">Search</label>
+    </div>
+
+     <!-- <div class="col s6 offset-s1 m4 l3 offset-l1 filter-bar ">
+      <select class="unit-type browser-default" ng-options="type for type in filterTypes" ng-model="cropIn.type">
+        <option value="" disabled selected>Filter by...</option>
+      </select>     
+    </div> -->
+  </div>
+  
+  <li class="amber lighten-5" ng-repeat="crop in allCrops" id="{{crop.id}}">    
+    <div class="collapsible-header truncate" >      
+      <a href="{{crop.avatar}}" data-lightbox="{{crop.id}}" data-title="{{crop.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
+      <a href="" class="add-to-cart"><i class="mdi-action-add-shopping-cart"></i></a>
+      <span>{{crop.quantity || '(no quantity)'}} of {{crop.crop_name || '(no name)'}} for ${{crop.price || '(no price)'}}</span>
+
+    </div>
+
+    <div class="collapsible-body row">
+      <table class="responsive-table">
+        <thead>
+          <tr>
+              <th data-field="harvest-date">Harvest Date</th>
+              <th data-field="qty">Quantity</th>
+              <th data-field="price">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{crop.harvest_date || '(no harvest date provided)'}}</td>
+            <td>{{crop.quantity || '(no quantity provided)'}} {{crop.unit || '(no unit provided)'}}s</td>
+            <td>${{crop.price || '(no price provided)'}} per {{crop.unit || '(no unit provided)'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>
+
+
