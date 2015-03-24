@@ -33,9 +33,9 @@
       };
 
       // Delete User
-      var deleteUser = function (profileType, id, auth) {
+      var deleteUser = function (auth) {
         SERVER.CONFIG.headers['auth-token'] = auth;
-        return $http.delete(SERVER.URL + profileType + 's/' + id, SERVER.CONFIG); 
+        return $http.delete(SERVER.URL + 'users', SERVER.CONFIG); 
       };
   
       return {

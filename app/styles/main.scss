@@ -14,6 +14,8 @@ body {
   background-color: $cream;
 }
 
+
+// Homepage
 .major-container {
 	background-image: url('/images/farm.jpg')
 }
@@ -33,6 +35,45 @@ body {
 	p {
 		color: $cream;
 		font-size: 1.4em;
+	}
+}
+
+
+// Farmer & Customer Template
+
+#menu-dropdown {
+	background-color: $cream;
+	a {
+		color: $brown;
+		&:hover {
+			color:$green;
+		}
+	}
+}
+
+.navigation {
+	min-height: 60px;
+	background-color: $green;
+	display: block;
+	text-align: center;
+	img {
+		margin: 0px;	
+	}
+	h5 {
+		display: inline-block;
+	}
+}
+
+
+
+.tutorial {
+	a {
+		color: $brown;
+		text-decoration: underline;
+		&:hover {
+			color: $green;
+			text-decoration: underline;
+		}
 	}
 }
 
@@ -105,24 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 900;
 }
 
-.navigation {
-	min-height: 60px;
-	background-color: $green;
 
-	.nav-container {
-		
-		.dropdown-button {
-			text-align: left;
-		}
-		h5 {
-			display: inline-block;
-			text-align: center;
-		}
-		.mdi-action-shopping-cart {
-			display: inline;
-		}
-	}
-}
 
 .icon-pic {
 	display: inline-block;
@@ -154,6 +178,10 @@ h1, h2, h3, h4, h5, h6 {
 	i {
 		color: $brown;
 	}
+	h5 {
+		color: $brown;
+		font-size: 2em;
+	}
 }
 
 ul {
@@ -174,6 +202,11 @@ ul {
 
 	.add-crops {
 		margin-top: 20px;
+		background-color: $green;
+
+		&:hover {
+			background-color: $green;
+		}
 	}
 }
 
@@ -201,7 +234,7 @@ select {
 		&:hover {
 			font-weight: bold;
 			font-size: 1.8em;
-
+			color: $green
 		}
 	}
 }
@@ -233,6 +266,8 @@ select {
 		&:hover {
 			font-size: 1.8em;
 			font-weight: bold;
+			color: $green;
+
 		}
 	}
 }

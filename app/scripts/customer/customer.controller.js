@@ -45,15 +45,18 @@
 
       
 
-      // Delete Account
-      $scope.deleteAccount = function () {
+      // Delete User
+      $scope.deleteUser = function () {
         var person  = window.prompt('Please type in "delete" if you are certain about deleting this account?');
         if (person === 'delete') {
-          UserFactory.deleteUser($scope.profileType, $scope.customerID, $scope.auth_token)
+          // var userObj = {user: {}};
+          UserFactory.deleteUser($scope.auth_token)
           .success( function() {
             console.log('account successfully deleted');
             $cookieStore.remove('auth_token');
             $cookieStore.remove('currentUser');
+            $('#editProfile').closeModal();
+            alert('Your account has been successfully deleted.');
             $location.path('/login');
           });
         } else {
@@ -92,6 +95,7 @@
             $('.prefix').removeClass('active');
             $('.label').removeClass('active');
             $('#changePassword').closeModal();
+            alert('Your password has been successfully changed.');
           });
       };
 

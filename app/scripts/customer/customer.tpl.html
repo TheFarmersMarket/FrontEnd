@@ -8,7 +8,9 @@
 
 <div class="navigation row">
   <div class="nav-container center">
-    <a class='dropdown-button left' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic"></a>
+    <a class='dropdown-button left' href='#' data-activates='menu-dropdown'>
+    <i class="mdi-navigation-arrow-drop-down small"><img src="{{avatar}}" class="circle icon-pic"></i>  
+    </a>
     <h5 class="col s9">{{customerProfile.business}}</h5>
     <!-- <i class="mdi-action-hometion-shopping-cart small">Cart</i> -->
   </div>
@@ -83,7 +85,7 @@
       </div>
 
       <div class="col s12 l8 offset-l2">
-        <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteAccount()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
+        <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteUser()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
       </div>
 
     </div>
@@ -122,7 +124,7 @@
 
 
 <!-- Show/Hide Tutorial -->
-<div class="row center">
+<div class="row center tutorial">
 <a href="" ng-click="showme=true">new? click for instructions</a>
 </div><br>
 
@@ -131,8 +133,6 @@
   <div class="row" ng-hide="showme">
   </div>
   
-  
-  <!-- Search Results -->
   <li class="amber lighten-5">
     
     <div class="collapsible-header truncate center amber lighten-5" >
@@ -215,7 +215,7 @@
       <a href="" class="add-to-cart"><i class="mdi-action-add-shopping-cart"></i></a>
 
 
-      <span>{{result.farm || 'farm?'}} has {{result.quantity}} {{result.crop_name}} for ${{result.price}}</span>
+      <span>{{result.crop_name}} from {{result.farm || 'farm?'}} for ${{result.price}}</span>
 
 
     </div>

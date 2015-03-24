@@ -40,13 +40,13 @@
 
    // Create Farmer Profile
    .when('/farmer/create-profile', {
-     templateUrl: '/scripts/farmers/create-farmer.tpl.html',
+     templateUrl: '/scripts/farmer/create-farmer.tpl.html',
      controller: 'FarmerCtrl'
    })
 
    // Create Customer Profile
    .when('/customer/create-profile', {
-     templateUrl: '/scripts/customers/create-customer.tpl.html',
+     templateUrl: '/scripts/customer/create-customer.tpl.html',
      controller: 'CustomerCtrl'
    })
 

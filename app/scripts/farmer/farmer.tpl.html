@@ -7,11 +7,11 @@
   <li><a ng-click="logoutUser()">Logout</a></li>
 </ul>
 
-<div class="navigation green row">
-    <a class='dropdown-button col s3 left' href='#' data-activates='menu-dropdown'><img src="{{avatar}}" class="circle icon-pic">
-      </a>
-
-      <h5 class="col s9">{{farmerProfile.farm}}</h5>
+<div class="navigation row">
+  <a class='dropdown-button left' href='#' data-activates='menu-dropdown'>
+  <i class="mdi-navigation-arrow-drop-down small"><img src="{{avatar}}" class="circle icon-pic"></i>  
+  </a>
+  <h5>{{farmerProfile.farm}}</h5>
 </div>
 
 <!-- Change Password Modal -->
@@ -51,35 +51,36 @@
 <div id="editProfile" class="modal">
   <div class="modal-content">
     <div class="row">
+      <h5 class="center">Edit Farm Profile</h5>
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-action-home prefix"></i>
         <input id="farm-name" type="text" class="validate" ng-model="farmer.farm">
-        <label for="farm-name">Farm Name is currently: {{farmerProfile.farm}}</label>
+        <label for="farm-name">Farm Name: {{farmerProfile.farm}}</label>
       </div>
 
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-maps-place prefix"></i>
         <input id="farm-location" type="text" class="validate" ng-model="farmer.location">
-        <label for="farm-location">Location is currently: {{farmerProfile.location}}</label>
+        <label for="farm-location">Location: {{farmerProfile.location}}</label>
       </div>
 
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-maps-local-phone prefix"></i>
         <input id="business-phone" type="text" class="validate" ng-model="farmer.business_phone">
-        <label for="business-phone">Phone is currently: {{farmerProfile.business_phone}}</label>
+        <label for="business-phone">Phone: {{farmerProfile.business_phone}}</label>
       </div>
 
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-maps-local-restaurant prefix"></i>  
         <input id="crop-names" type="text" class="validate" ng-model="farmer.crop_names">
-        <label for="crop-names">Crops produced is currently: {{farmerProfile.crop_names}}</label>
+        <label for="crop-names">Crops produced: {{farmerProfile.crop_names}}</label>
       </div>
     </div>
 
     
 
     <div class="col s12 l8 offset-l2">
-      <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteAccount()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
+      <a class="btn-floating btn-large waves-effect waves-light red" ng-click='deleteUser()'><i class="mdi-action-delete white-text"></i></a>&nbsp &nbsp<span>Delete Account</span>
     </div>
 
   </div>
@@ -119,6 +120,47 @@
     </div>
   </div>
 </div>
+
+
+<!-- Show/Hide Tutorial -->
+<div class="row center tutorial">
+<a href="" ng-click="showme=true">new? click for instructions</a>
+</div><br>
+
+<ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" ng-show="showme" >
+  
+  <div class="row" ng-hide="showme">
+  </div>
+  
+  <li class="amber lighten-5">
+    
+    <div class="collapsible-header truncate center amber lighten-5" >
+      <a href="" class="remove-how-to" ng-click="showme=false"><i class="mdi-content-clear"></i></a>
+      <h5>Instructions</h5>
+    </div>
+
+    <div class="row">
+      <table class="responsive-table">
+        <thead>
+          <tr>
+              <th data-field="step-1">Step 1</th>
+              <th data-field="step-2">Step 2</th>
+              <th data-field="step-3">Step 3</th>
+              <th data-field="step-4">Step 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Add new crops using the "Add" button below</td>
+            <td>Make sure to add images of your crops too!</td>
+            <td>Edit existing crops by tapping the pencil icon</td>
+            <td>Delete crops by tapping the red "X" icon</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>
 
 
 <!-- Farm Card Section -->  
@@ -163,33 +205,27 @@
     <h5>Your Crops</h5>
   </div>
 
-      <!-- <img src="images/farmers-market-logo.png" data-lightbox="roadtrip"> -->
-
   <div class="row">
-
     <div class="search-bar input-field col s12 m6 l6 " ng-model="searchText">
       <i class="mdi-action-search prefix"></i>
       <input id="crop-search" type="text" >
       <label for="crop-search">Search</label>
     </div>
 
-     <a ng-click="openAddCropModal()" class="add-crops  green lighten-1 black-text waves-effect waves-light btn col s3 offset-s1 m2 l1 offset-l1 ">Add</a> 
+     <a ng-click="openAddCropModal()" class="add-crops waves-effect waves-light btn col s3 offset-s1 m2 l1 offset-l1 ">Add</a> 
 
      <div class="col s6 offset-s1 m4 l3 offset-l1 filter-bar ">
       <select class="unit-type browser-default" ng-options="type for type in filterTypes" ng-model="cropIn.type">
         <option value="" disabled selected>Filter by...</option>
       </select>     
     </div>
-
   </div>
   
-  <li class="amber lighten-5" ng-repeat="crop in allCrops | filter:searchText" id="{{crop.id}}">
-    
-    <div class="collapsible-header truncate" >
-      
+  <li class="amber lighten-5" ng-repeat="crop in allCrops" id="{{crop.id}}">    
+    <div class="collapsible-header truncate" >      
       <a href="{{crop.avatar}}" data-lightbox="{{crop.id}}" data-title="{{crop.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
 
-      <span>{{crop.quantity}} of {{crop.crop_name}} for ${{crop.price}}</span>
+      <span>{{crop.quantity || '(no quantity)'}} of {{crop.crop_name || '(no name)'}} for ${{crop.price || '(no price)'}}</span>
 
       <a href="" ng-click="deleteCrop(crop.id)" class="delete-crop secondary-content"><i class="mdi-content-clear"></i></a>
 
@@ -200,7 +236,6 @@
       <table class="responsive-table">
         <thead>
           <tr>
-              <th data-field="farm-name">Farm Name</th>
               <th data-field="harvest-date">Harvest Date</th>
               <th data-field="qty">Quantity</th>
               <th data-field="price">Price</th>
@@ -208,11 +243,9 @@
         </thead>
         <tbody>
           <tr>
-            <td ng-model="search.name">{{farmerProfile.farm}}</td>
-            <td>Need Harvest Date</td>
-            <td>{{crop.quantity}}</td>
-            <td>${{crop.price}} per {{crop.unit}}</td>
-            <!-- <td style="display:none;">{{crop.id}}</td> -->
+            <td>{{crop.harvest_date || '(no harvest date provided)'}}</td>
+            <td>{{crop.quantity || '(no quantity provided)'}} {{crop.unit || '(no unit provided)'}}s</td>
+            <td>${{crop.price || '(no price provided)'}} per {{crop.unit || '(no unit provided)'}}</td>
           </tr>
         </tbody>
       </table>
@@ -259,10 +292,7 @@
     <!-- Upload Image Modal-->
     <div class="modal-content">
       <div class="row">
-        <!-- <form ng-submit="uploadImage()"> -->
           <input type="file" id="cropImage">
-          <!-- <button type="submit">Upload New Image</button> -->
-        <!-- </form> -->
       </div>
     </div>
   </div>
