@@ -38,6 +38,11 @@ body {
 	}
 }
 
+// Login & Register Page
+
+.submit-btn {
+	background-color: $green;
+}
 
 // Farmer & Customer Template
 
@@ -139,13 +144,19 @@ i {
 	color: $cream;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5 {
 	color: $cream;
 	font-family: $alfa-font;
 	letter-spacing: 2px;
 	font-weight: 900;
 }
 
+h6 {
+	color: $brown;
+	font-family: $alfa-font;
+	letter-spacing: 1px;
+	
+}
 
 
 .icon-pic {

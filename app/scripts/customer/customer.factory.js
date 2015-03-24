@@ -49,6 +49,12 @@
         return $http.get(SERVER.URL + 'searches/search/?query=' + query, SERVER.CONFIG);
       };
 
+      // Farmer Profile
+      var farmerProfile = function (farmerID) {
+        // SERVER.CONFIG.headers['auth-token'] = auth;
+        return $http.get(SERVER.URL + 'farmers/' + farmerID + '/profile');
+      };
+
       //Refresh Page
       var refreshPage = function () {
         
@@ -76,13 +82,14 @@
 
   
       return {
-        getCustomer : getCustomer,
-        changePassword : changePassword,
+        getCustomer: getCustomer,
+        changePassword: changePassword,
         createProfile: createProfile,
         editProfile: editProfile,
         editPhoto: editPhoto,
-        refreshPage : refreshPage, 
-        search: search,       
+        refreshPage: refreshPage, 
+        search: search,
+        farmerProfile: farmerProfile       
       };
 
     }

@@ -135,9 +135,9 @@
   
   <li class="amber lighten-5">
     
-    <div class="collapsible-header truncate center amber lighten-5" >
-      <a href="" class="remove-how-to" ng-click="showme=false"><i class="mdi-content-clear"></i></a>
-      <h5>Instructions</h5>
+    <div class="collapsible-header truncate amber lighten-5 row">
+      <a href="" class="remove-how-to left" ng-click="showme=false"><i class="mdi-content-clear"></i></a>
+      <h5 class="center">Instructions</h5>
     </div>
 
     <div class="row">
@@ -221,7 +221,7 @@
     </div>
 
     <div class="collapsible-body row">
-      <table class="responsive-table">
+      <table class="responsive-table centered">
         <thead>
           <tr>
               <th data-field="result-type">Crop Name</th>
@@ -229,7 +229,6 @@
               <th data-field="result-type">Contact Name</th>
               <th data-field="result-type">Quantity</th>
               <th data-field="result-type">Price</th>          
-              <th data-field="result-type">Price per Unit</th>
               <th data-field="result-url">Farm URL</th>
           </tr>
         </thead>
@@ -238,10 +237,9 @@
             <td>{{result.crop_name || "no name provided"}}</td>
             <td>{{result.farm || "no farm provided"}}</td>
             <td>{{result.contact_name || "no name provided"}}</td>
-            <td>{{result.quantity || "no quantity provided"}}</td>
-            <td>${{result.price || "no price provided"}}</td>
-            <td>{{result.unit || "no unit provided"}}</td>
-            <td><a href="http://localhost:9000/#/main{{result.url}}">Go here</a></td>
+            <td>{{result.quantity || "no quantity provided"}} {{result.unit}}s</td>
+            <td>${{result.price || "no price provided"}} per {{result.unit}}</td>
+            <td><a href="#/main/farmer-profile/{{result.farmer_id}}">Go here</a></td>
           </tr>
         </tbody>
       </table>

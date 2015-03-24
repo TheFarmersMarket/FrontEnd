@@ -36,7 +36,7 @@
           .success(function (res) {
             $scope.customerProfile = res.customer;
             $scope.avatar = res.avatar.avatar;
-            console.log("Customer Profile:")
+            console.log("Customer Profile:");
             console.log($scope.customerProfile);
         });
       };
@@ -145,11 +145,15 @@
       $scope.search = function (query) {
         CustomerFactory.search(query, $scope.auth_token)
           .success( function (res) {
-            $scope.allResults = res.search;
-            console.log($scope.allResults);
+            if (res === []) {
+              alert('no search results, try again.');
+            } else {
+              $scope.allResults = res.search;
+              console.log($scope.allResults);
+            }
+
           });
       };
-
 
 
     }

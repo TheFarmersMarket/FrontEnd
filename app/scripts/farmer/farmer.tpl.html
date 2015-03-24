@@ -54,6 +54,12 @@
       <h5 class="center">Edit Farm Profile</h5>
       <div class="input-field col s12 l8 offset-l2">
         <i class="mdi-action-home prefix"></i>
+        <input id="contact-name" type="text" class="validate" ng-model="farmer.contact_name">
+        <label for="contact-name">Contact Name: {{farmerProfile.contact_name}}</label>
+      </div>
+
+      <div class="input-field col s12 l8 offset-l2">
+        <i class="mdi-action-home prefix"></i>
         <input id="farm-name" type="text" class="validate" ng-model="farmer.farm">
         <label for="farm-name">Farm Name: {{farmerProfile.farm}}</label>
       </div>

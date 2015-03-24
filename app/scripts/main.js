@@ -60,6 +60,12 @@
    .when('/main/customer/:id', {
      templateUrl: '/scripts/customer/customer.tpl.html',
      controller: 'CustomerCtrl'
+   })
+
+   // Show Farmer Page 
+   .when('/main/farmer-profile/:id', {
+     templateUrl: '/scripts/farmer-profile/farmer-profile.tpl.html',
+     controller: 'FarmerProfileCtrl'
    });
    
  }]);
