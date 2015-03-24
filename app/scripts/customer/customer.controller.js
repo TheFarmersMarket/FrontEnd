@@ -16,6 +16,9 @@
       $scope.customerID = $scope.user.customer_id;
       $scope.profileType = $scope.user.profile_type;
 
+      sessionStorage.setItem('customerID', $scope.customerID);
+      sessionStorage.setItem('auth', $scope.auth_token);
+
 
       //Refresh page method on customer factory
       CustomerFactory.refreshPage();

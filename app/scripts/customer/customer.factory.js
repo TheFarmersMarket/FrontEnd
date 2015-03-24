@@ -51,9 +51,16 @@
 
       // Farmer Profile
       var farmerProfile = function (farmerID) {
-        // SERVER.CONFIG.headers['auth-token'] = auth;
         return $http.get(SERVER.URL + 'farmers/' + farmerID + '/profile');
       };
+
+      // Follow Farmer
+      var followFarmer = function (auth, customerID, farmerID) {
+        var farmerid = {'farmer': {'id': farmerID}}; 
+        SERVER.CONFIG.headers['auth-token'] = auth;        
+        return $http.post(SERVER.URL + 'customers/' + customerID + '/follow', farmerid, SERVER.CONFIG);
+      };
+
 
       //Refresh Page
       var refreshPage = function () {
@@ -89,7 +96,8 @@
         editPhoto: editPhoto,
         refreshPage: refreshPage, 
         search: search,
-        farmerProfile: farmerProfile       
+        farmerProfile: farmerProfile, 
+        followFarmer: followFarmer      
       };
 
     }

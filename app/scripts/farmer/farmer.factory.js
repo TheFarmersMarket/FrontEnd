@@ -78,6 +78,8 @@
       };
 
       
+
+      
       var refreshPage = function () {
         
         // Load Materialize Collapsible
@@ -114,7 +116,7 @@
         refreshPage : refreshPage,
         editPhoto: editPhoto,
         deleteCrop: deleteCrop,
-        edit: editCrop
+        edit: editCrop,
       };
 
     }

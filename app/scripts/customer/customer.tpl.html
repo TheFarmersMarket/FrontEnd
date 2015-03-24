@@ -162,25 +162,48 @@
 </ul>
 
 
-<!-- Customer Card Section -->
-<!-- <div class="row">
-  <div class="card col s12 m6 offset-m1 l4 offset-l1 white">
-    <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="images/farm1.jpeg">
-    </div>
-    <div class="card-content">
-      <h5 class="card-title activator brown-text">{{customerProfile.business}}<i class="mdi-navigation-expand-less medium right brown-text"></i></h5>
-      <p>Primary Contact: {{customerProfile.contact_name}}</p>
-      <p>Location: {{customerProfile.location}}</p>
-      <p>Phone: {{customerProfile.business_phone}}</p>
-      <p>Email: {{customerProfile.business_email}}</p>
-    </div>
-    <div class="card-reveal white">
-      <span class="card-title grey-text text-darken-4">About {{customerProfile.business}}<i class="mdi-navigation-close right black-text"></i></span>
-      <p>{{customerProfile.description}}</p>
-    </div>
+<!-- Crops Listed Section -->
+<ul class="collapsible col s12 m5 offset-m1 l5 offset-l1 amber lighten-5">
+  
+  <div class="row">
+    <h5 class= "center">Following</h5>
   </div>
-</div> -->
+  
+  <!-- Search Results -->
+  <li class="amber lighten-5" ng-repeat="result in allResults">
+    
+    <div class="collapsible-header truncate" >      
+      <a href="{{result.avatar}}" data-lightbox="{{result.crop_id}}" data-title="{{result.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
+      <a href="" class="add-to-cart"><i class="mdi-action-add-shopping-cart"></i></a>
+      <span>{{result.crop_name}} from {{result.farm || 'farm?'}} for ${{result.price}}</span>
+    </div>
+
+    <div class="collapsible-body row">
+      <table class="responsive-table centered">
+        <thead>
+          <tr>
+              <th data-field="result-type">Crop Name</th>
+              <th data-field="result-type">Farm Name</th>    
+              <th data-field="result-type">Contact Name</th>
+              <th data-field="result-type">Quantity</th>
+              <th data-field="result-type">Price</th>          
+              <th data-field="result-url">Farm URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{result.crop_name || "no name provided"}}</td>
+            <td>{{result.farm || "no farm provided"}}</td>
+            <td>{{result.contact_name || "no name provided"}}</td>
+            <td>{{result.quantity || "no quantity provided"}} {{result.unit}}s</td>
+            <td>${{result.price || "no price provided"}} per {{result.unit}}</td>
+            <td><a href="#/main/farmer-profile/{{result.farmer_id}}">Go here</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>
 
 
  

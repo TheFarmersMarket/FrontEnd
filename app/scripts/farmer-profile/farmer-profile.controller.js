@@ -11,7 +11,8 @@
     function ($routeParams, $scope, CustomerFactory, FarmerFactory, $cookieStore) {
 
       var farmerID = $routeParams.id;
-
+      $scope.customerID = sessionStorage.getItem('customerID');
+      $scope.auth = sessionStorage.getItem('auth');
 
       CustomerFactory.farmerProfile(farmerID)
         .success( function(res) {            
@@ -33,6 +34,16 @@
           }, 0);
 
         });
+
+      $scope.followFarmer = function () {
+        CustomerFactory.followFarmer($scope.auth, $scope.customerID, farmerID)
+          .success( function (res) {
+            console.log(res);
+            $scope.followerCount = res.follow.farmers_followers_count;
+            console.log($scope.followerCount);
+            console.log("Following Farmer!");
+          });
+      };
 
     }
 

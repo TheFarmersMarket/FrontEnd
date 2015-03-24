@@ -125,7 +125,7 @@
 
 <!-- Link back to Customer Page -->
 <div class="row center tutorial">
-<a href="#/main/customer/{{user.customer_id}}">back to my page</a>
+<a href="#/main/customer/{{customerID}}">back to my page</a>
 </div><br>
 
 <!-- Farm Card Section -->  
@@ -142,6 +142,7 @@
       <p><a href="tel:{{farmerProfile.business_phone}}">{{farmerProfile.business_phone || "no phone provided"}}</a></p>
       <p><a href="mailto:{{farmerProfile.email}}">{{farmerProfile.email || "no email provided"}}</a></p>
     </div>
+    
     <div class="card-reveal white">
       <span class="card-title grey-text text-darken-4">About<i class="mdi-navigation-close right black-text"></i></span>
       <p>{{farmerProfile.description || "This is a family owned farm that specializes in the freshest produce on Earth."}}</p>
@@ -149,11 +150,12 @@
   </div>
 
   <div class="collapsible image-box center col s12 m5 offset-m1 l6 offset-l1 amber lighten-5">
-    
     <br>
-    <a class="waves-effect waves-light btn-large"><i class="mdi-social-group-add right large"></i>Follow</a>
+    
+  <!-- Follow Button -->
+    <a class="waves-effect waves-light btn-large follow-btn" ng-click="followFarmer()"><i class="mdi-social-group-add right large"></i>Follow</a>
 
-
+    <h5>Followers: {{followerCount}}</h5>
   </div>
 </div>
 
