@@ -39,6 +39,9 @@
             console.log("Farmer Profile");
             console.log($scope.farmerProfile);
             $scope.avatar = res.avatar.avatar;
+            if ($scope.avatar === "/images/medium/missing.png") {
+              $scope.avatar = "/images/farmers-market-logo.png";
+            }
         });
       };
 

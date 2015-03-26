@@ -38,6 +38,9 @@
           .success(function (res) {
             $scope.customerProfile = res.customer;
             $scope.avatar = res.avatar.avatar;
+            if ($scope.avatar === "/images/medium/missing.png") {
+              $scope.avatar = "/images/farmers-market-logo.png";
+            }
             console.log("Customer Profile:");
             console.log($scope.customerProfile);
             sessionStorage.setItem('customerAvatar', res.avatar.avatar);
