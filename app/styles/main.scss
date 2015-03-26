@@ -36,6 +36,9 @@ body {
 		color: $cream;
 		font-size: 1.4em;
 	}
+	.header {
+		color: #FDF202;
+	}
 }
 
 // Login & Register Page
@@ -59,16 +62,14 @@ body {
 .navigation {
 	min-height: 60px;
 	background-color: $green;
-	display: block;
-	text-align: center;
 	img {
 		margin: 0px;	
 	}
 	h5 {
 		display: inline-block;
+		margin-left: 15px;
 	}
 }
-
 
 
 .tutorial {
@@ -147,7 +148,7 @@ i {
 h1, h2, h3, h4, h5 {
 	color: $cream;
 	font-family: $alfa-font;
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 	font-weight: 900;
 }
 
@@ -162,6 +163,7 @@ h6 {
 .icon-pic {
 	display: inline-block;
 	width: 60px;
+	height: 60px;
 	vertical-align: middle;
 	margin-left: 10px;
 }
@@ -196,6 +198,13 @@ h6 {
 }
 
 ul {
+
+	a {
+		color: $green;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 
 	h5 {
 	color: $brown;
@@ -240,10 +249,24 @@ select {
 	margin-top: 10px;
 }
 
+.link-to {
+	text-transform: lowercase;
+}
+
+
 .edit-crop {
 	i {
 		&:hover {
 			font-weight: bold;
+			font-size: 1.8em;
+			color: $green
+		}
+	}
+}
+
+.add-to-cart {
+	i {
+		&:hover {
 			font-size: 1.8em;
 			color: $green
 		}
@@ -261,10 +284,10 @@ select {
 	}
 }
 
+
 .delete-crop {
 	i {
 		color: red;
-
 		&:hover {
 			font-size: 1.8em;
 			font-weight: bold;

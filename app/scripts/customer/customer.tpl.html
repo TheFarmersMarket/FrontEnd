@@ -4,16 +4,14 @@
   <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
   <li><a ng-click="openImageModal()" class="waves-effect waves-light">Edit Photo</a></li>
   <li><a ng-click="logoutUser()">Logout</a></li>
+  <li><a href="#/">Home</a></li>
 </ul>
 
 <div class="navigation row">
-  <div class="nav-container center">
     <a class='dropdown-button left' href='#' data-activates='menu-dropdown'>
-    <i class="mdi-navigation-arrow-drop-down small"><img src="{{avatar}}" class="circle icon-pic"></i>  
+      <i class="mdi-navigation-arrow-drop-down small"><img src="{{avatar}}" class="circle icon-pic"></i>  
     </a>
     <h5 class="col s9">{{customerProfile.business}}</h5>
-    <!-- <i class="mdi-action-hometion-shopping-cart small">Cart</i> -->
-  </div>
 </div>
 
 <!-- Change Password Modal -->
@@ -144,16 +142,16 @@
       <table class="responsive-table">
         <thead>
           <tr>
-              <th data-field="step-1">Step 1</th>
-              <th data-field="step-2">Step 2</th>
-              <th data-field="step-3">Step 3</th>
+              <th data-field="step-1" class="center">Step 1</th>
+              <th data-field="step-2" class="center">Step 2</th>
+              <th data-field="step-3" class="center">Step 3</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Search for a crop below</td>
-            <td>Use keywords like "crop name" or "city"</td>
-            <td>Find local crops close to you!</td>
+            <td>Search for crops in "Marketplace"</td>
+            <td>Track your crops by storing them in "Cart"</td>
+            <td>Follow and receive updates from farmers you trust.</td>
           </tr>
         </tbody>
       </table>
@@ -162,24 +160,43 @@
 </ul>
 
 
-<!-- Crops Listed Section -->
-<ul class="collapsible col s12 m5 offset-m1 l5 offset-l1 amber lighten-5">
+<!-- Following -->
+<ul class="collapsible col s12 m8 offset-m2 l4 offset-l1 amber lighten-5">
   
   <div class="row">
-    <h5 class= "center">Following</h5>
-  </div>
+    <h5 class= "center">Following &nbsp<i class="mdi-social-person-add"></i></h5>
+  </div><br>
   
-  <!-- Search Results -->
-  <li class="amber lighten-5" ng-repeat="result in allResults">
+  <!-- Show Followers -->
+  <li class="amber lighten-5" ng-repeat="farm in allFollowing">    
+    <div class="collapsible-header truncate" >
+      <a href="" class="add-to-cart"><i class="mdi-communication-email"></i></a>
+      <a href="#/main/farmer-profile/{{farm.farmer_id}}">{{farm.farm}}</a>
+      <a href="" class="remove-how-to secondary-content" ng-click="unFollow(farm.farmer_id)"><i class="mdi-navigation-close"></i></a>
+
+    </div>
+  </li>
+</ul>
+
+<!-- Cart -->
+<ul class="collapsible col s12 m8 offset-m2 l5 offset-l1 amber lighten-5">
+  
+  <div class="row">
+    <h5 class= "center">Cart &nbsp<i class="mdi-action-shopping-cart"></i></h5>
+  </div><br>
+  
+  <!-- Items in Cart -->
+  <li class="amber lighten-5" ng-repeat="item in myCart">
     
-    <div class="collapsible-header truncate" >      
-      <a href="{{result.avatar}}" data-lightbox="{{result.crop_id}}" data-title="{{result.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
-      <a href="" class="add-to-cart"><i class="mdi-action-add-shopping-cart"></i></a>
-      <span>{{result.crop_name}} from {{result.farm || 'farm?'}} for ${{result.price}}</span>
+    <div class="collapsible-header truncate" >   
+      <a href="{{item.avatar}}" data-lightbox="{{item.crop_id}}" data-title="{{item.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>   
+      <span>{{item.quantity}} {{item.unit}} of {{item.crop_name}} for ${{item.price}}</span>
+      <a href="" class="remove-how-to secondary-content" ng-click="removeFromCart(item.crop_id)"><i class="mdi-navigation-close"></i></a>
+
     </div>
 
     <div class="collapsible-body row">
-      <table class="responsive-table centered">
+      <table class="responsive-table">
         <thead>
           <tr>
               <th data-field="result-type">Crop Name</th>
@@ -192,12 +209,12 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{result.crop_name || "no name provided"}}</td>
-            <td>{{result.farm || "no farm provided"}}</td>
-            <td>{{result.contact_name || "no name provided"}}</td>
-            <td>{{result.quantity || "no quantity provided"}} {{result.unit}}s</td>
-            <td>${{result.price || "no price provided"}} per {{result.unit}}</td>
-            <td><a href="#/main/farmer-profile/{{result.farmer_id}}">Go here</a></td>
+            <td>{{item.crop_name || "no name provided"}}</td>
+            <td>{{item.farm || "no farm provided"}}</td>
+            <td>{{item.contact_name || "no name provided"}}</td>
+            <td>{{item.quantity || "no quantity provided"}} {{item.unit}}s</td>
+            <td>${{item.price || "no price provided"}} per {{item.unit}}</td>
+            <td><a href="#/main/farmer-profile/{{item.farmer_id}}">Go here</a></td>
           </tr>
         </tbody>
       </table>
@@ -232,19 +249,14 @@
   <!-- Search Results -->
   <li class="amber lighten-5" ng-repeat="result in allResults">
     
-    <div class="collapsible-header truncate" >
-      
+    <div class="collapsible-header truncate">      
       <a href="{{result.avatar}}" data-lightbox="{{result.crop_id}}" data-title="{{result.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
-      <a href="" class="add-to-cart"><i class="mdi-action-add-shopping-cart"></i></a>
-
-
-      <span>{{result.crop_name}} from {{result.farm || 'farm?'}} for ${{result.price}}</span>
-
-
+      <a href="" class="add-to-cart" ng-click="addToCart(result)"><i class="mdi-action-add-shopping-cart"></i></a>
+      <span>{{result.quantity}} {{result.unit}}s of {{result.crop_name}} for ${{result.price}}</span>
     </div>
 
     <div class="collapsible-body row">
-      <table class="responsive-table centered">
+      <table class="responsive-table">
         <thead>
           <tr>
               <th data-field="result-type">Crop Name</th>
@@ -291,7 +303,6 @@
         <label for="crop-quantity">Quantity</label>
       </div>
     </div>
-
 
     <div class="col s12 l8 offset-l2">
       <div class="input-field">

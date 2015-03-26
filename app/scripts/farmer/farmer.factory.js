@@ -66,9 +66,19 @@
       };
 
       // Edit Crop
-      var editCrop = function (cropObj, auth, cropID) {
+      var editCrop = function (cropObj, cropImg, auth, cropID) {
         SERVER.CONFIG.headers['auth-token'] = auth;
-        return $http.put(SERVER.URL + 'crops/' + cropID, cropObj, SERVER.CONFIG);
+        SERVER.CONFIG.headers['Content-Type'] = undefined;
+
+        var formData = new FormData();
+        formData.append('crop[avatar]', cropImg);
+        formData.append('crop[crop_name]', cropObj.crop_name);
+        formData.append('crop[quantity]', cropObj.quantity);
+        formData.append('crop[price]', cropObj.price);
+        formData.append('crop[currency]', cropObj.currency);
+        formData.append('crop[unit]', cropObj.unit);
+
+        return $http.put(SERVER.URL + 'crops/' + cropID, formData, SERVER.CONFIG);
       };
 
       // Delete Crop

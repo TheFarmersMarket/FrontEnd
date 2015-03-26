@@ -150,16 +150,7 @@
         $('#editCropModal').openModal();
       };  
 
-      // Edit Crop
-      $scope.editCrop = function (cropObj) {
-        FarmerFactory.edit(cropObj, $scope.auth_token, $scope.currentCropID)
-          .success(function () {
-            setTimeout(function () {
-              $scope.getCrops();
-              $('#editCropModal').closeModal();              
-            }, 100);
-          });
-      };
+      
 
       // Edit Photo Modal
       $scope.openImageModal = function () {
@@ -202,7 +193,7 @@
 
       // Add Crop
       $scope.addCrop = function (cropObj) {
-        var img = document.getElementById('cropImage');
+        var img = document.getElementById('addCropImage');
         var cropImg = img.files[0];
         console.log(cropObj);
 
@@ -220,11 +211,43 @@
             $('#addCrop').closeModal();
 
             $scope.allCrops.push(res.crop);
+            toast('<span>The crop was successfully added.</span>', 3000);
 
             setTimeout(function () {
               $scope.getCrops();
             }, 100);            
           
+          });
+      };
+
+      // Edit Crop
+      $scope.editCrop = function (cropObj) {
+        if (cropObj === undefined) {
+          cropObj = {};
+        }
+        var img = document.getElementById('editCropImage');
+        var cropImg = img.files[0];
+        console.log(cropObj);
+        console.log(cropImg);
+
+        FarmerFactory.edit(cropObj, cropImg, $scope.auth_token, $scope.currentCropID)
+          .success(function (res) {
+            console.log("edited crop");
+            console.log(res);
+            //close modal
+            $('.label').removeClass('active');
+            $scope.cropIn.crop_name = null;
+            $scope.cropIn.quantity = null;
+            $scope.cropIn.price = null;
+            $scope.cropIn.type = null;
+            $scope.cropIn.currency = null;
+            $('#editCropModal').closeModal();
+            toast('<span>The crop was successfully edited.</span>', 3000);
+
+            setTimeout(function () {
+              $scope.getCrops();
+            }, 100);
+
           });
       };
 
@@ -238,6 +261,8 @@
               setTimeout(function () {
                 $scope.getCrops();
               }, 100);
+
+              toast('<span>The crop was successfully deleted.</span>', 3000);
             });
         }
 

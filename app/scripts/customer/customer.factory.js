@@ -61,6 +61,29 @@
         return $http.post(SERVER.URL + 'customers/' + customerID + '/follow', farmerid, SERVER.CONFIG);
       };
 
+      // Get Following
+      var getFollowing = function (auth, customerID) {
+        SERVER.CONFIG.headers['auth-token'] = auth;        
+        return $http.get(SERVER.URL + 'customers/' + customerID + '/all_following', SERVER.CONFIG);
+      };
+
+      // Unfollow Farmer
+      var unFollow = function (auth, customerID, farmerID) {
+        SERVER.CONFIG.headers['auth-token'] = auth; 
+        var farmerObj = {"farmer": {"id": farmerID}};
+        console.log(auth);
+        console.log(customerID);
+        console.log(farmerObj);       
+        return $http.put(SERVER.URL + 'customers/' + customerID + '/unfollow', farmerObj, SERVER.CONFIG);
+      };
+
+
+      var getFollowerCount = function (auth, farmerID) {
+        // console.log(farmerID);
+        SERVER.CONFIG.headers['auth-token'] = auth;        
+        return $http.get(SERVER.URL + 'farmers/' + farmerID + '/follower_count', SERVER.CONFIG);
+      };
+
 
       //Refresh Page
       var refreshPage = function () {
@@ -97,7 +120,10 @@
         refreshPage: refreshPage, 
         search: search,
         farmerProfile: farmerProfile, 
-        followFarmer: followFarmer      
+        followFarmer: followFarmer,
+        getFollowing: getFollowing,
+        unFollow: unFollow,
+        getFollowerCount: getFollowerCount      
       };
 
     }

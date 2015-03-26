@@ -4,9 +4,9 @@
 
   angular.module('FarmersMarket')
 
-  .controller('CustomerCtrl', ['$scope', 'CustomerFactory', '$location', "SERVER", "$cookieStore", 'UserFactory',
+  .controller('CustomerCtrl', ['$rootScope', '$scope', 'CustomerFactory', '$location', "SERVER", "$cookieStore", 'UserFactory',
 
-    function ($scope, CustomerFactory, $location, SERVER, $cookieStore, UserFactory) {
+    function ($rootScope, $scope, CustomerFactory, $location, SERVER, $cookieStore, UserFactory) {
 
       // Define Scopes
       $scope.user = $cookieStore.get('currentUser');
@@ -18,7 +18,6 @@
 
       sessionStorage.setItem('customerID', $scope.customerID);
       sessionStorage.setItem('auth', $scope.auth_token);
-
 
       //Refresh page method on customer factory
       CustomerFactory.refreshPage();
@@ -41,11 +40,23 @@
             $scope.avatar = res.avatar.avatar;
             console.log("Customer Profile:");
             console.log($scope.customerProfile);
+            sessionStorage.setItem('customerAvatar', res.avatar.avatar);
         });
       };
 
       $scope.getCustomerData();
 
+      // Get All Following
+      $scope.getFollowing = function () {
+        $scope.allFollowing = [];   
+        CustomerFactory.getFollowing($scope.auth_token, $scope.customerID)
+          .success(function (res) {
+            $scope.allFollowing = res.all_following;
+            console.log($scope.allFollowing);
+        });
+      };
+
+      $scope.getFollowing();
       
 
       // Delete User
@@ -155,6 +166,48 @@
               console.log($scope.allResults);
             }
 
+          });
+      };
+
+      $scope.myCart = [];
+
+      // Add to Cart
+      $scope.addToCart = function (cropObj) {
+        $('.collapsible-header').click(function(e) {
+          e.stopPropagation();
+        });
+        
+        $scope.myCart.push(cropObj);
+        sessionStorage.setItem('myCart', $scope.myCart);
+        console.log($scope.myCart);
+        setTimeout(function () {
+        }, 1500);
+      };
+
+      // Get Cart Items
+      // sessionStorage.getItem('myCart');
+
+
+      // Remove from Cart
+      $scope.removeFromCart = function (cropID) {
+        // console.log(cropID);
+        for (var i = 0; i < $scope.myCart.length; i++) {
+          if ($scope.myCart[i].crop_id === cropID) {
+            $scope.myCart.splice(i, 1);
+            return $scope.myCart;
+          }
+        }
+      };
+
+      // Unfollow Farmer
+      $scope.unFollow = function (farmerID) {
+        CustomerFactory.unFollow($scope.auth_token, $scope.customerID, farmerID)
+          .success( function (res) {
+            console.log("unfollow farmer");
+
+            setTimeout(function () {
+              $scope.getFollowing();
+            }, 500);
           });
       };
 

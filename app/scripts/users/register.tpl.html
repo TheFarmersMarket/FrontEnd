@@ -30,13 +30,14 @@
 	    	<div class="col s12">
 	    		<h6 class="brown-text">Select a Profile Type:</h6><br>
 	    		<span class="col s6">
-				    <input name="group1" type="radio" id="customer" ng-model="user.profile_type" value="customer" />
-				    <label for="customer">Business</label>
-				  </span>
-				  <span class="col s6">
 				  	<input ng-model="user.profile_type" value="farmer" name="group1" id="farmer" type="radio">
 				  	<label for="farmer">Farmer</label>
 				  </span>
+	    		<span class="col s6">
+				    <input name="group1" type="radio" id="customer" ng-model="user.profile_type" value="customer" />
+				    <label for="customer">Consumer</label>
+				  </span>
+				  
 			  </div>
 		  </div><br/><br/>
 	    <div class="row">

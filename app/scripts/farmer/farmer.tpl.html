@@ -5,6 +5,7 @@
   <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
   <li><a ng-click="openImageModal()" class="waves-effect waves-light">Edit Photo</a></li>
   <li><a ng-click="logoutUser()">Logout</a></li>
+  <li><a href="#/">Home</a></li>
 </ul>
 
 <div class="navigation row">
@@ -149,10 +150,10 @@
       <table class="responsive-table">
         <thead>
           <tr>
-              <th data-field="step-1">Step 1</th>
-              <th data-field="step-2">Step 2</th>
-              <th data-field="step-3">Step 3</th>
-              <th data-field="step-4">Step 4</th>
+              <th data-field="step-1" class="center">Step 1</th>
+              <th data-field="step-2" class="center">Step 2</th>
+              <th data-field="step-3" class="center">Step 3</th>
+              <th data-field="step-4" class="center">Step 4</th>
           </tr>
         </thead>
         <tbody>
@@ -231,7 +232,7 @@
     <div class="collapsible-header truncate" >      
       <a href="{{crop.avatar}}" data-lightbox="{{crop.id}}" data-title="{{crop.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
 
-      <span>{{crop.quantity || '(no quantity)'}} of {{crop.crop_name || '(no name)'}} for ${{crop.price || '(no price)'}}</span>
+      <span>{{crop.quantity || '(no quantity)'}} {{crop.unit}}s of {{crop.crop_name || '(no name)'}} for ${{crop.price || '(no price)'}}</span>
 
       <a href="" ng-click="deleteCrop(crop.id)" class="delete-crop secondary-content"><i class="mdi-content-clear"></i></a>
 
@@ -298,7 +299,7 @@
     <!-- Upload Image Modal-->
     <div class="modal-content">
       <div class="row">
-          <input type="file" id="cropImage">
+          <input type="file" id="addCropImage">
       </div>
     </div>
   </div>
@@ -353,6 +354,13 @@
       <select class="currency-type browser-default" ng-options="currency for currency in currencyTypes" ng-model="cropIn.currency">
         <option value="" disabled selected>Currency Code</option>       
       </select>     
+    </div>
+
+    <!-- Upload Image Modal-->
+    <div class="modal-content">
+      <div class="row">
+          <input type="file" id="editCropImage">
+      </div>
     </div>
 
   </div>

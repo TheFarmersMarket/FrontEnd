@@ -1,19 +1,15 @@
 <!-- Navigation Bar -->
 <ul id="menu-dropdown" class="dropdown-content">
-  <li><a ng-click="openProfileModal()" class="waves-effect waves-light">Edit Profile</a></li>
-  <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
-  <li><a ng-click="openImageModal()" class="waves-effect waves-light">Edit Photo</a></li>
+  <li><a href="#/main/customer/{{customerID}}">Back to My Profile</a></li>
   <li><a ng-click="logoutUser()">Logout</a></li>
+  <li><a href="#/">Home</a></li>
 </ul>
 
 <div class="navigation row">
-  <div class="nav-container center">
     <a class='dropdown-button left' href='#' data-activates='menu-dropdown'>
-    <i class="mdi-navigation-arrow-drop-down small"><img src="{{farmerAvatar}}" class="circle icon-pic"></i>  
+      <i class="mdi-navigation-arrow-drop-down small"><img src="{{customerAvatar}}" class="circle icon-pic"></i>
     </a>
-    <h5 class="col s8">{{farmerProfile.farm}} Profile</h5>
-    <!-- <i class="mdi-action-hometion-shopping-cart small">Cart</i> -->
-  </div>
+    <h5 class="col s9">{{farmerProfile.farm}}'s profile</h5>
 </div>
 
 <!-- Change Password Modal -->
@@ -130,7 +126,7 @@
 
 <!-- Farm Card Section -->  
 <div class="farmer-profile row">
-  <div class="card col s10 offset-s1 m4 offset-m1 l3 offset-l1 white">
+  <div class="card col s10 offset-s1 m5 offset-m1 l5 offset-l1 white">
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator data-lightbox" src="{{farmerAvatar}}">
     </div>
@@ -139,8 +135,8 @@
       <h6>Contact Info:</h6>
       <p>{{farmerProfile.contact_name || "Farmer John"}}</p>
       <p>{{farmerProfile.location || "Atlanta, GA"}}</p>
-      <p><a href="tel:{{farmerProfile.business_phone}}">{{farmerProfile.business_phone || "no phone provided"}}</a></p>
-      <p><a href="mailto:{{farmerProfile.email}}">{{farmerProfile.email || "no email provided"}}</a></p>
+      <p><a href="tel:{{farmerProfile.business_phone}}">Call them</a></p>
+      <p><a href="mailto:{{farmerProfile.email}}">Email them</a></p>
     </div>
     
     <div class="card-reveal white">
@@ -149,13 +145,13 @@
     </div>
   </div>
 
-  <div class="collapsible image-box center col s12 m5 offset-m1 l6 offset-l1 amber lighten-5">
+  <div class="collapsible image-box center col s12 m4 offset-m1 l4 offset-l1 amber lighten-5">
     <br>
     
   <!-- Follow Button -->
     <a class="waves-effect waves-light btn-large follow-btn" ng-click="followFarmer()"><i class="mdi-social-group-add right large"></i>Follow</a>
 
-    <h5>Followers: {{followerCount}}</h5>
+    <h5>Followers: {{follower_count}}</h5><br>
   </div>
 </div>
 
@@ -164,7 +160,7 @@
 <ul class="collapsible col s12 m10 offset-m1 l10 offset-l1 amber lighten-5" data-collapsible="expandable">
   
   <div class="center">
-    <h5>Farm's Crops</h5>
+    <h5>Their Crops</h5>
   </div>
 
   <div class="row">
@@ -184,8 +180,8 @@
   <li class="amber lighten-5" ng-repeat="crop in allCrops" id="{{crop.id}}">    
     <div class="collapsible-header truncate" >      
       <a href="{{crop.avatar}}" data-lightbox="{{crop.id}}" data-title="{{crop.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>
-      <a href="" class="add-to-cart"><i class="mdi-action-add-shopping-cart"></i></a>
-      <span>{{crop.quantity || '(no quantity)'}} of {{crop.crop_name || '(no name)'}} for ${{crop.price || '(no price)'}}</span>
+      <a href="" class="add-to-cart" ng-click="addToCart(crop)"><i class="mdi-action-add-shopping-cart"></i></a>
+      <span>{{crop.quantity || '(no quantity)'}} {{crop.unit}}s of {{crop.crop_name || '(no name)'}} for ${{crop.price || '(no price)'}}</span>
 
     </div>
 
