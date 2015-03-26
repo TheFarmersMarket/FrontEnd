@@ -21,7 +21,8 @@ gulp.task('styles', function () {
 
 gulp.task('html', ['styles'], function () {
 
-  return gulp.src('app/*.html')
+//Added **/* to grab all the html templates as opposed to just index.html
+  return gulp.src('app/**/*.html')
     .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
     .pipe($.if('*.css', $.csso()))
     .pipe($.useref.restore())
