@@ -162,11 +162,16 @@
       $scope.search = function (query) {
         CustomerFactory.search(query, $scope.auth_token)
           .success( function (res) {
-            if (res === []) {
-              alert('no search results, try again.');
+            if (res.search.length === 0) {
+              toast('<span>No results found, try again.</span>', 3000);
             } else {
               $scope.allResults = res.search;
               console.log($scope.allResults);
+              
+              for (var i = 0; i < $scope.allResults.length; i++) {
+                if ($scope.allResults[i].avatar === "/images/medium/missing.png");
+                  $scope.allResults[i].avatar = "/images/farmers-market-logo.png";
+              }
             }
 
           });
