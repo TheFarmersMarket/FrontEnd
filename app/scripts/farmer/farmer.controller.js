@@ -156,7 +156,7 @@
       $scope.openEditCropModal = function (cropID) {
         $scope.currentCropID = cropID;
         $('#editCropModal').openModal();
-b      };  
+      };  
 
       
 
@@ -186,7 +186,7 @@ b      };
       $scope.getCrops = function () {
         FarmerFactory.getCrops($scope.farmerID)
           .success( function (res) {
-            $scope.allCrops = res.crops;
+            $scope.Crops = res.crops;
             console.log($scope.allCrops);
             setTimeout(function () {
               $('.collapsible').collapsible({
@@ -231,6 +231,10 @@ b      };
 
       // Edit Crop
       $scope.editCrop = function (cropObj) {
+        $('.collapsible-header').click( function(e) {
+          e.stopPropagation();
+        });
+
         if (cropObj === undefined) {
           cropObj = {};
         }
@@ -262,6 +266,10 @@ b      };
 
       // Delete Crop
       $scope.deleteCrop = function (cropID) {
+        $('.collapsible-header').click(function(e) {
+          e.stopPropagation();
+        });
+
         var deleteThis = confirm("Are you certain you want to delete this crop?");
         
         if (deleteThis === true) {

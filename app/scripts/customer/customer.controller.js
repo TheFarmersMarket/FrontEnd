@@ -199,7 +199,6 @@
 
       // Remove from Cart
       $scope.removeFromCart = function (cropID) {
-        // console.log(cropID);
         for (var i = 0; i < $scope.myCart.length; i++) {
           if ($scope.myCart[i].crop_id === cropID) {
             $scope.myCart.splice(i, 1);
