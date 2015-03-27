@@ -311,6 +311,18 @@ select {
 	margin-top: 10px;
 }
 
+.card-content {
+	a {
+		color: $green;
+		text-transform: lowercase;	
+		
+		&:hover {
+		color: $green;
+		text-decoration: underline;		
+		}
+	}
+}
+
 .link-to {
 	text-transform: lowercase;
 }

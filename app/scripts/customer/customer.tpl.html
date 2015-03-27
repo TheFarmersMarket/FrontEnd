@@ -160,7 +160,7 @@
 
 
 <!-- Following -->
-<ul class="collapsible col s12 m8 offset-m2 l4 offset-l1 amber lighten-5">
+<ul class="collapsible col s12 m10 offset-m1 l4 offset-l1 amber lighten-5">
   
   <div class="row">
     <h5 class= "center">Following &nbsp<i class="mdi-social-person-add"></i></h5>
@@ -178,7 +178,7 @@
 </ul>
 
 <!-- Cart -->
-<ul class="collapsible col s12 m8 offset-m2 l5 offset-l1 amber lighten-5">
+<ul class="collapsible col s12 m10 offset-m1 l5 offset-l1 amber lighten-5">
   
   <div class="row">
     <h5 class= "center">Cart &nbsp<i class="mdi-action-shopping-cart"></i></h5>
@@ -187,7 +187,7 @@
   <!-- Items in Cart -->
   <li class="amber lighten-5" ng-repeat="item in myCart">
     
-    <div class="collapsible-header truncate" >   
+    <div class="collapsible-header truncate">   
       <a href="{{item.avatar}}" data-lightbox="{{item.crop_id}}" data-title="{{item.crop_name}}" class="photo-crop"><i class="mdi-image-camera-alt"></i></a>   
       <span>{{item.quantity}} {{item.unit}} of {{item.crop_name}} for ${{item.price}}</span>
       <a href="" class="remove-how-to secondary-content" ng-click="removeFromCart(item.crop_id)"><i class="mdi-navigation-close"></i></a>

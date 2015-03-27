@@ -68,6 +68,16 @@
 
       $scope.getFollowerCount(farmerID);
 
+      $scope.addToCart = function (cropObj) {
+        $('.collapsible-header').click(function(e) {
+          e.stopPropagation();
+        });
+        
+        $scope.myCart.push(cropObj);
+        sessionStorage.setItem('myCart', $scope.myCart);
+        console.log($scope.myCart);
+      };
+
     }
 
   ]);
