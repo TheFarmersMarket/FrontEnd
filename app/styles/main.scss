@@ -33,7 +33,11 @@ div.logo-banner {
 }
 
 section.info-banner {
+	background-image: url('/images/farm-1.jpg');
 	padding: 0px;
+	.row {
+		background-color: HSLA(120, 100%, 32%, .88);
+	}
 	h2 {
 		background-color: $brown;
 		color: $cream;
@@ -45,7 +49,7 @@ section.info-banner {
 div.developers {
 	background-image: url('/images/vegetable.jpg');
 	background-size: 2000px 1200px;
-	padding: 600px 0px 0px 0px;
+	padding: 300px 0px 300px 0px;
 	img {
 		max-width: 200px;
 		max-height: 200px;
@@ -72,7 +76,7 @@ div.developers {
 		}
 
 		.profile {
-			margin-top: 25px;
+			margin: 25px 0px;
 
 			.social-icon {
 				width: 65px;
