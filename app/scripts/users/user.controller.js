@@ -18,7 +18,7 @@
             UserFactory.setCookies(res);
             $location.path('/' + res.user.profile_type + '/create-profile');
             $scope.user = $cookieStore.get('currentUser');
-            //RETURNS id, email, authentication_token, profile_type, farmer_id
+            toast('<span>Your account has been created - please provide some account info.</span>', 5000);
           });
       };
 

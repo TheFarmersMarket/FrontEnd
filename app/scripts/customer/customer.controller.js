@@ -29,6 +29,7 @@
         CustomerFactory.createProfile(customerObj, $scope.auth_token, $scope.customerID)
           .success( function(res) {
             $location.path('/main/customer/' + $scope.customerID);
+            toast('<span>Welcome to your customer profile! Start by searching for crops.</span>', 5000);
           });
       };
 
@@ -66,24 +67,25 @@
       $scope.deleteUser = function () {
         var person  = window.prompt('Please type in "delete" if you are certain about deleting this account?');
         if (person === 'delete') {
-          // var userObj = {user: {}};
           UserFactory.deleteUser($scope.auth_token)
           .success( function() {
             console.log('account successfully deleted');
             $cookieStore.remove('auth_token');
             $cookieStore.remove('currentUser');
             $('#editProfile').closeModal();
-            alert('Your account has been successfully deleted.');
+            toast("<span>Your account has been successfully deleted.</span>", 3000);
             $location.path('/login');
           });
         } else {
-          alert("Your account was not deleted because you did not type 'delete' correctly.");
+          toast("<span>Your account was not deleted because you did not type 'delete' correctly.</span>", 3000);
         }
       };
 
       // Logout
       $scope.logoutUser = function () {
-        UserFactory.logout();
+        UserFactory.logout().success( function () {
+          toast("<span>You've been logged out.</span>", 3000);
+        });
       };
 
 
@@ -112,7 +114,7 @@
             $('.prefix').removeClass('active');
             $('.label').removeClass('active');
             $('#changePassword').closeModal();
-            alert('Your password has been successfully changed.');
+            toast("<span>Your password has been successfully changed.</span>", 3000);
           });
       };
 
@@ -136,6 +138,7 @@
             $('.prefix').removeClass('active');
             $('.label').removeClass('active');
             $('#editCustomerProfile').closeModal();
+            toast("<span>Your profile's info has been edited.</span>", 3000);
           });
       };
 
@@ -156,9 +159,9 @@
           }); 
       };
 
-      $scope.allResults = [];
 
       // Search
+      $scope.allResults = [];
       $scope.search = function (query) {
         CustomerFactory.search(query, $scope.auth_token)
           .success( function (res) {
@@ -169,17 +172,18 @@
               console.log($scope.allResults);
               
               for (var i = 0; i < $scope.allResults.length; i++) {
-                if ($scope.allResults[i].avatar === "/images/medium/missing.png");
+                if ($scope.allResults[i].avatar === "/images/medium/missing.png") {
                   $scope.allResults[i].avatar = "/images/farmers-market-logo.png";
+                }
               }
             }
 
           });
       };
 
-      $scope.myCart = [];
 
       // Add to Cart
+      $scope.myCart = [];
       $scope.addToCart = function (cropObj) {
         $('.collapsible-header').click(function(e) {
           e.stopPropagation();
@@ -191,9 +195,6 @@
         setTimeout(function () {
         }, 1500);
       };
-
-      // Get Cart Items
-      // sessionStorage.getItem('myCart');
 
 
       // Remove from Cart
@@ -211,7 +212,6 @@
       $scope.unFollow = function (farmerID) {
         CustomerFactory.unFollow($scope.auth_token, $scope.customerID, farmerID)
           .success( function (res) {
-            console.log("unfollow farmer");
 
             setTimeout(function () {
               $scope.getFollowing();

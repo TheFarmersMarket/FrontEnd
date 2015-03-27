@@ -27,6 +27,7 @@
           .success(function (res) {
             console.log(res + " success!");
             $location.path('/main/farmer/' + $scope.farmerID);
+            toast('<span>Welcome to your farmer profile! Start by adding crops.</span>', 5000);            
           });
       };
 
@@ -76,17 +77,19 @@
             $cookieStore.remove('auth_token');
             $cookieStore.remove('currentUser');
             $('#editProfile').closeModal();
-            alert('Your account has been successfully deleted.');
+            toast("<span>Your account has been successfully deleted.</span>", 3000);
             $location.path('/login');
           });
         } else {
-          alert("Your account was not deleted because you did not type 'delete' correctly.");
+          toast("<span>Your account was not deleted because you did not type 'delete' correctly.</span>", 3000);
         }
       };
 
       // Logout
       $scope.logoutUser = function () {
-        UserFactory.logout();
+        UserFactory.logout().success( function() {
+          toast("<span>You've been logged out.</span>", 3000);
+        });
       };
 
       // Define Load Modal
@@ -113,7 +116,7 @@
             $('.prefix').removeClass('active');
             $('.label').removeClass('active');
             $('#changePassword').closeModal();
-            alert('Your password has been successfully changed.');
+            toast("<span>Your password has been successfully changed.</span>", 3000);
           });
       };
 
@@ -133,6 +136,8 @@
               $scope.getFarmerData();
             }, 100);
 
+            toast("<span>Your profile's info has been edited.</span>", 3000);            
+
             setTimeout(function () {
               $scope.farmer.farm = null;
               $scope.farmer.location = null;
@@ -151,7 +156,7 @@
       $scope.openEditCropModal = function (cropID) {
         $scope.currentCropID = cropID;
         $('#editCropModal').openModal();
-      };  
+b      };  
 
       
 
