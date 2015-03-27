@@ -4,7 +4,6 @@
   <li><a ng-click="openPasswordModal()" class="waves-effect waves-light">Edit Password</a></li>
   <li><a ng-click="openImageModal()" class="waves-effect waves-light">Edit Photo</a></li>
   <li><a ng-click="logoutUser()">Logout</a></li>
-  <li><a href="#/">Home</a></li>
 </ul>
 
 <div class="navigation row">
@@ -170,7 +169,7 @@
   <!-- Show Followers -->
   <li class="amber lighten-5" ng-repeat="farm in allFollowing">    
     <div class="collapsible-header truncate" >
-      <a href="" class="add-to-cart"><i class="mdi-communication-email"></i></a>
+      <a href="mailto:{{farm.email}}" class="add-to-cart"><i class="mdi-communication-email"></i></a>
       <a href="#/main/farmer-profile/{{farm.farmer_id}}">{{farm.farm}}</a>
       <a href="" class="remove-how-to secondary-content" ng-click="unFollow(farm.farmer_id)"><i class="mdi-navigation-close"></i></a>
 

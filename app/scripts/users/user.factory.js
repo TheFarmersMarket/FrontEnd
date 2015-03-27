@@ -29,7 +29,7 @@
       var logoutUser = function () { 
         $cookieStore.remove('auth_token');
         $cookieStore.remove('currentUser');
-        $location.path('/login');        
+        $location.path('/');        
       };
 
       // Delete User

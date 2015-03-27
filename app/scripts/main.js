@@ -22,7 +22,7 @@
 
    // Home Page
    .when('/', {
-     templateUrl: '/scripts/users/homepage.tpl.html',
+     templateUrl: '/scripts/users/homepage2.tpl.html',
      controller: 'UserCtrl'
    })
 

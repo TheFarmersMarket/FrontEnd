@@ -209,8 +209,9 @@
             $scope.cropIn.crop_name = null;
             $scope.cropIn.quantity = null;
             $scope.cropIn.price = null;
-            $scope.cropIn.type = null;
+            $scope.cropIn.unit = null;
             $scope.cropIn.currency = null;
+            img.files = [];
             $('#addCrop').closeModal();
 
             $scope.allCrops.push(res.crop);

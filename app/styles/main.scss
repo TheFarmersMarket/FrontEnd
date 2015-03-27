@@ -2,6 +2,7 @@
 $alfa-font: 'Bree Serif', serif;
 $standard: 'Open Sans', sans-serif;
 //Colors
+$red: HSLA(0, 100%, 41%, 1);
 $cream: HSLA(60, 46%, 90%, 1);
 $green: HSLA(120, 100%, 32%, 1);
 $brown: HSLA(14, 29%, 38%, 1);
@@ -16,8 +17,69 @@ body {
 
 
 // Homepage
-.major-container {
-	background-image: url('/images/farm.jpg')
+// .major-container {
+// 	background-image: url('/images/farm.jpg')
+// }
+
+div.logo-banner {
+	min-height: 500px;
+	background-image: url('/images/farm.jpg');
+	background-size: 1600px 800px;
+	background-position: 0px -120px;
+
+	.login-button {
+		background-color: $green;
+	}
+}
+
+section.info-banner {
+	padding: 0px;
+	h2 {
+		background-color: $brown;
+		color: $cream;
+		margin: 0px;
+		padding: 3%;
+	}
+}
+
+div.developers {
+	background-image: url('/images/vegetable.jpg');
+	background-size: 2000px 1200px;
+	padding: 600px 0px 0px 0px;
+	img {
+		max-width: 200px;
+		max-height: 200px;
+	}
+
+	.row {
+		background-color: HSLA(60, 46%, 90%, .6);
+
+		h2 {
+			color: $red;
+			background-color: $cream;
+			margin: 0px auto;
+			padding: 1%;
+		}
+
+		h5 {
+			color: $red;
+			background-color: black;	
+			padding: 2%;
+			font-size: 20px;
+		}
+
+		.profile {
+			margin-top: 25px;
+
+			.social-icon {
+				width: 65px;
+				&:hover {
+					background-color: $red;
+					cursor: pointer;
+				}
+			}	
+		}
+	}
 }
 
 .homepage {
@@ -35,9 +97,6 @@ body {
 	p {
 		color: $cream;
 		font-size: 1.4em;
-	}
-	.header {
-		color: #FDF202;
 	}
 }
 
