@@ -61,11 +61,14 @@ div.developers {
 			padding: 1%;
 		}
 
-		h5 {
-			color: $red;
-			background-color: black;	
-			padding: 2%;
-			font-size: 20px;
+		.info {
+				background-color: black;
+			h5 {
+				color: $red;
+				padding: 1%;
+				font-size: 20px;
+				margin: 0px;
+			}
 		}
 
 		.profile {
